@@ -28,7 +28,9 @@ class _HomeState extends State<Home> {
               return <Widget>[
                 SliverAppBar(
                   expandedHeight: 250.0,
-                  floating: false,
+                  collapsedHeight: 90,
+
+                  // floating: false,
                   pinned: true,
                   elevation: 0,
                   backgroundColor: Colors.transparent,
@@ -37,7 +39,7 @@ class _HomeState extends State<Home> {
                       title: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 25),
                         child: Container(
-                          height: 35,
+                          height: 45,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
