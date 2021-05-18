@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class Field extends StatefulWidget {
   final String label;
   final TextEditingController controller;
-  const Field({Key key, this.label, this.controller}) : super(key: key);
+  final bool ispass;
+  const Field({Key key, this.label, this.controller, this.ispass})
+      : super(key: key);
   @override
   _FieldState createState() => _FieldState();
 }
@@ -20,7 +22,7 @@ class _FieldState extends State<Field> {
               borderRadius: BorderRadius.circular(5),
               border: Border.all(color: Colors.black12)),
           child: TextField(
-            obscureText: true,
+            obscureText: widget.ispass,
             controller: widget.controller,
             decoration: InputDecoration(
               border: InputBorder.none,

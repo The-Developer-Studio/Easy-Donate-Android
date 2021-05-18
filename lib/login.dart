@@ -1,3 +1,4 @@
+import 'package:easydonatefinal/backend/authentication.dart';
 import 'package:easydonatefinal/widgets/field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -53,15 +54,18 @@ class _LoginState extends State<Login> {
               Field(
                 label: 'Email',
                 controller: emailController,
+                ispass: false,
               ),
               Field(
                 label: 'Password',
                 controller: passwordController,
+                ispass: true,
               ),
               widget.isSignup
                   ? Field(
                       label: 'Confirm Password',
                       controller: confirmPasswordController,
+                      ispass: true,
                     )
                   : Container(),
               Center(
@@ -81,7 +85,20 @@ class _LoginState extends State<Login> {
                       backgroundColor:
                           MaterialStateProperty.all(Colors.deepOrangeAccent),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      if (widget.isSignup) {
+                        if (passwordController.text ==
+                            confirmPasswordController.text) {
+                          authRegister(emailController.text,
+                              passwordController.text, context);
+                        } else {
+                          print("Entered Passwords did not match");
+                        }
+                      } else {
+                        authLogin(emailController.text, passwordController.text,
+                            context);
+                      }
+                    },
                   ),
                 ),
               ),

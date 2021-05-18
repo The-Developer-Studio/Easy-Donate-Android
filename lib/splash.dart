@@ -1,3 +1,5 @@
+import 'package:easydonatefinal/aftersplash.dart';
+import 'package:easydonatefinal/backend/authentication.dart';
 import 'package:easydonatefinal/login.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -13,9 +15,7 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return new SplashScreen(
         seconds: 3,
-        navigateAfterSeconds: new Login(
-          isSignup: false,
-        ),
+        navigateAfterSeconds: AfterSplash(),
         image: Image.asset('images/logo.png'),
         backgroundColor: Colors.white,
         styleTextUnderTheLoader: new TextStyle(),
