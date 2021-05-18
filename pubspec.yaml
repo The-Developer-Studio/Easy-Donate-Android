@@ -70,6 +70,12 @@ flutter:
          - asset: fonts/Montserrat-SemiBold.ttf
            style: normal
 
+     - family: MyFlutterApp
+       fonts:
+         - asset: icons/MyFlutterApp.ttf
+
+
+
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
