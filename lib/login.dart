@@ -1,9 +1,22 @@
+import 'package:easydonatefinal/widgets/field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
-// Login Screen
-class Login extends StatelessWidget {
+// Login Screen and SignUp Screen
+class Login extends StatefulWidget {
+  final bool isSignup;
+
+  const Login({Key key, this.isSignup}) : super(key: key);
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
+    var emailController = new TextEditingController();
+    var passwordController = new TextEditingController();
+    var confirmPasswordController = new TextEditingController();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -25,7 +38,9 @@ class Login extends StatelessWidget {
                 height: 40,
               ),
               Text(
-                'Login to your Account',
+                widget.isSignup
+                    ? 'Create your Account'
+                    : 'Login to your Account',
                 textAlign: TextAlign.left,
                 style: TextStyle(
                     fontFamily: "Montserrat",
@@ -35,41 +50,20 @@ class Login extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              Container(
-                padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
-                height: 70,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: Colors.black12)),
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    labelText: "Email",
-                    labelStyle: TextStyle(fontSize: 14),
-                  ),
-                ),
+              Field(
+                label: 'Email',
+                controller: emailController,
               ),
-              SizedBox(
-                height: 30,
+              Field(
+                label: 'Password',
+                controller: passwordController,
               ),
-              Container(
-                padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
-                height: 70,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: Colors.black12)),
-                child: TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    labelText: "Password",
-                    labelStyle: TextStyle(fontSize: 14),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
+              widget.isSignup
+                  ? Field(
+                      label: 'Confirm Password',
+                      controller: confirmPasswordController,
+                    )
+                  : Container(),
               Center(
                 child: Container(
                   width: 500,
@@ -78,13 +72,15 @@ class Login extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  child: FlatButton(
+                  child: TextButton(
                     child: Text(
-                      'Sign in',
-                      style: TextStyle(fontSize: 14.0),
+                      widget.isSignup ? 'Sign Up' : 'Sign in',
+                      style: TextStyle(fontSize: 14.0, color: Colors.white),
                     ),
-                    color: Colors.deepOrangeAccent,
-                    textColor: Colors.white,
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.deepOrangeAccent),
+                    ),
                     onPressed: () {},
                   ),
                 ),
@@ -92,24 +88,34 @@ class Login extends StatelessWidget {
               SizedBox(
                 height: 60,
               ),
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Dont have an account? ',
-                      style: TextStyle(fontSize: 14.0),
+              widget.isSignup
+                  ? Container()
+                  : Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Dont have an account? ',
+                            style: TextStyle(fontSize: 14.0),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Login(
+                                        isSignup: true,
+                                      )));
+                            },
+                            child: Text(
+                              'Sign up ',
+                              style: TextStyle(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.deepOrange),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    Text(
-                      'Sign up ',
-                      style: TextStyle(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.deepOrange),
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),

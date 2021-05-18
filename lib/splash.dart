@@ -13,7 +13,9 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return new SplashScreen(
         seconds: 3,
-        navigateAfterSeconds: new Login(),
+        navigateAfterSeconds: new Login(
+          isSignup: false,
+        ),
         image: Image.asset('images/logo.png'),
         backgroundColor: Colors.white,
         styleTextUnderTheLoader: new TextStyle(),
