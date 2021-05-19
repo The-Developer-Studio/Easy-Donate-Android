@@ -8,6 +8,9 @@ class DonationsPage extends StatefulWidget {
 class _DonationsPageState extends State<DonationsPage> {
   @override
   Widget build(BuildContext context) {
-    return Text('Donations');
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(child: Text('Donations')),
+    );
   }
 }
