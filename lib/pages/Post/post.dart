@@ -1,4 +1,4 @@
-import 'package:easydonatefinal/Post/basicdetails.dart';
+import 'package:easydonatefinal/pages/Post/basicdetails.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

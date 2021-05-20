@@ -1,4 +1,4 @@
-import 'package:easydonatefinal/splash.dart';
+import 'package:easydonatefinal/pages/splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

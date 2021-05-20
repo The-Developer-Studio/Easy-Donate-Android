@@ -1,8 +1,8 @@
-import 'package:easydonatefinal/login.dart';
+import 'package:easydonatefinal/pages/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../home.dart';
+import '../pages/requestPage.dart';
 
 Stream authcheck() {
   return FirebaseAuth.instance.authStateChanges().asBroadcastStream();
@@ -34,7 +34,8 @@ authLogin(String email, String password, BuildContext context) async {
     UserCredential userCredential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .whenComplete(() => Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Home()), (route) => false));
+            MaterialPageRoute(builder: (context) => Requests()),
+            (route) => false));
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
       print('No user found for that email.');
