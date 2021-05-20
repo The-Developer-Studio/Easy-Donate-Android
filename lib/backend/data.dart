@@ -4,6 +4,10 @@ getRequests() {
   return FirebaseFirestore.instance.collection('requests').snapshots();
 }
 
+getDonations() {
+  return FirebaseFirestore.instance.collection('donations').snapshots();
+}
+
 // ignore: missing_return
 String duration(Timestamp time) {
   var difference = Timestamp.now().toDate().difference(time.toDate());
