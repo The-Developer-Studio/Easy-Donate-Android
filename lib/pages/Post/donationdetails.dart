@@ -1,10 +1,9 @@
+import 'dart:io';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:easydonatefinal/widgets/field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
-import 'category.dart';
 
 class DonationDetails extends StatefulWidget {
   @override
@@ -12,15 +11,18 @@ class DonationDetails extends StatefulWidget {
 }
 
 class _DonationDetailsState extends State<DonationDetails> {
-  var _image;
+  File _image;
   final picker = ImagePicker();
 
-  Future _getImage() async {
-    var image = await picker.getImage(source: ImageSource.gallery);
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
-      _image = image;
-      print('_image: $_image');
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
     });
   }
 
@@ -67,7 +69,7 @@ class _DonationDetailsState extends State<DonationDetails> {
                 height: 40,
               ),
               GestureDetector(
-                onTap: _getImage,
+                onTap: getImage,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -83,15 +85,24 @@ class _DonationDetailsState extends State<DonationDetails> {
                 ),
               ),
               SizedBox(
+                height: 20,
+              ),
+              _image == null
+                  ? Text('No image selected.')
+                  : Image.file(
+                      _image,
+                      height: 120,
+                    ),
+              SizedBox(
                 height: 60,
               ),
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CategoryPage()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => MyHomePage()),
+                    // );
                   },
                   child: Container(
                     height: 40,
