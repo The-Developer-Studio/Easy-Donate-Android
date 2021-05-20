@@ -1,5 +1,6 @@
 import 'package:easydonatefinal/backend/authentication.dart';
 import 'package:easydonatefinal/login.dart';
+import 'package:easydonatefinal/main.dart';
 import 'package:flutter/material.dart';
 
 import 'home.dart';
@@ -15,7 +16,7 @@ class _AfterSplashState extends State<AfterSplash> {
     return StreamBuilder(
         stream: authcheck(),
         builder: (context, snapshot) {
-          if (snapshot.data != null) return Home();
+          if (snapshot.data != null) return BottomNavigation();
           return Login(
             isSignup: false,
           );
