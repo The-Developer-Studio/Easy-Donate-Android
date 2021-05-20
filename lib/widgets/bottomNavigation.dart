@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../account.dart';
 import '../donations.dart';
 import '../home.dart';
-import '../post.dart';
+import '../Post/post.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
