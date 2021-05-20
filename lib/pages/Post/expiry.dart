@@ -1,3 +1,4 @@
+import 'package:easydonatefinal/pages/Post/success.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -148,10 +149,10 @@ class _ExpiryPageState extends State<ExpiryPage> {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => BasicDetails()),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SuccessPage()),
+                    );
                   },
                   child: Container(
                     height: 40,
