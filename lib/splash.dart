@@ -1,6 +1,4 @@
 import 'package:easydonatefinal/aftersplash.dart';
-import 'package:easydonatefinal/backend/authentication.dart';
-import 'package:easydonatefinal/login.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 

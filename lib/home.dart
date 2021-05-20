@@ -1,6 +1,4 @@
-import 'package:easydonatefinal/donations.dart';
 import 'package:easydonatefinal/login.dart';
-import 'package:easydonatefinal/requests.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

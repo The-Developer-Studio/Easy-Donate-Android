@@ -1,9 +1,7 @@
 import 'package:easydonatefinal/backend/authentication.dart';
 import 'package:easydonatefinal/login.dart';
-import 'package:easydonatefinal/main.dart';
+import 'package:easydonatefinal/widgets/bottomNavigation.dart';
 import 'package:flutter/material.dart';
-
-import 'home.dart';
 
 class AfterSplash extends StatefulWidget {
   @override
