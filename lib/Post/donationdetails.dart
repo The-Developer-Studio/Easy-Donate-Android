@@ -1,14 +1,29 @@
-import 'package:easydonatefinal/Post/donationdetails.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
-import 'package:easydonatefinal/widgets/categorytile.dart';
+import 'package:easydonatefinal/widgets/field.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class CategoryPage extends StatefulWidget {
+import 'category.dart';
+
+class DonationDetails extends StatefulWidget {
   @override
-  _CategoryPageState createState() => _CategoryPageState();
+  _DonationDetailsState createState() => _DonationDetailsState();
 }
 
-class _CategoryPageState extends State<CategoryPage> {
+class _DonationDetailsState extends State<DonationDetails> {
+  var _image;
+  final picker = ImagePicker();
+
+  Future _getImage() async {
+    var image = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = image;
+      print('_image: $_image');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +39,7 @@ class _CategoryPageState extends State<CategoryPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Select a category',
+                'Donation details',
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -33,42 +48,39 @@ class _CategoryPageState extends State<CategoryPage> {
               SizedBox(
                 height: 40,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CategoryTile(
-                    icondata: Icons.fastfood,
-                    label: 'Food',
-                  ),
-                  CategoryTile(
-                    icondata: Icons.fastfood,
-                    label: 'Clothes',
-                  ),
-                  CategoryTile(
-                    icondata: Icons.fastfood,
-                    label: 'Drinks',
-                  ),
-                ],
+              CustomField(
+                labeltext: "Name of Product",
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              CustomField(
+                labeltext: "Description",
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              CustomField(
+                labeltext: "Quantity",
               ),
               SizedBox(
                 height: 40,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CategoryTile(
-                    icondata: Icons.fastfood,
-                    label: 'Food',
-                  ),
-                  CategoryTile(
-                    icondata: Icons.fastfood,
-                    label: 'Clothes',
-                  ),
-                  CategoryTile(
-                    icondata: Icons.ac_unit_outlined,
-                    label: 'Others',
-                  ),
-                ],
+              GestureDetector(
+                onTap: _getImage,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Attach Images',
+                        style: TextStyle(
+                            color: Colors.deepOrange,
+                            fontWeight: FontWeight.bold)),
+                    Icon(
+                      Icons.attach_file_rounded,
+                      color: Colors.deepOrange,
+                    )
+                  ],
+                ),
               ),
               SizedBox(
                 height: 60,
@@ -78,8 +90,7 @@ class _CategoryPageState extends State<CategoryPage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => DonationDetails()),
+                      MaterialPageRoute(builder: (context) => CategoryPage()),
                     );
                   },
                   child: Container(
