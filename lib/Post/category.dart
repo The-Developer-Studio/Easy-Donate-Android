@@ -1,15 +1,13 @@
-import 'package:easydonatefinal/Post/category.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
-import 'package:easydonatefinal/widgets/field.dart';
+import 'package:easydonatefinal/widgets/categorytile.dart';
 import 'package:flutter/material.dart';
-import 'package:easydonatefinal/main.dart';
 
-class BasicDetails extends StatefulWidget {
+class CategoryPage extends StatefulWidget {
   @override
-  _BasicDetailsState createState() => _BasicDetailsState();
+  _CategoryPageState createState() => _CategoryPageState();
 }
 
-class _BasicDetailsState extends State<BasicDetails> {
+class _CategoryPageState extends State<CategoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +23,7 @@ class _BasicDetailsState extends State<BasicDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Basic details',
+                'Select a category',
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -34,26 +32,42 @@ class _BasicDetailsState extends State<BasicDetails> {
               SizedBox(
                 height: 40,
               ),
-              CustomField(
-                labeltext: "Name of Donor",
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CategoryTile(
+                    icondata: Icons.fastfood,
+                    label: 'Food',
+                  ),
+                  CategoryTile(
+                    icondata: Icons.fastfood,
+                    label: 'Clothes',
+                  ),
+                  CategoryTile(
+                    icondata: Icons.fastfood,
+                    label: 'Drinks',
+                  ),
+                ],
               ),
               SizedBox(
-                height: 20,
+                height: 40,
               ),
-              CustomField(
-                labeltext: "Address of Donor",
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomField(
-                labeltext: "City",
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomField(
-                labeltext: "Country",
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CategoryTile(
+                    icondata: Icons.fastfood,
+                    label: 'Food',
+                  ),
+                  CategoryTile(
+                    icondata: Icons.fastfood,
+                    label: 'Clothes',
+                  ),
+                  CategoryTile(
+                    icondata: Icons.ac_unit_outlined,
+                    label: 'Others',
+                  ),
+                ],
               ),
               SizedBox(
                 height: 60,
