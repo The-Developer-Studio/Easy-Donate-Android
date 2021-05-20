@@ -1,9 +1,9 @@
+import 'package:easydonatefinal/pages/Post/post.dart';
 import 'package:flutter/material.dart';
 
-import '../account.dart';
-import '../donations.dart';
-import '../home.dart';
-import '../Post/post.dart';
+import '../pages/account.dart';
+import '../pages/donationsPage.dart';
+import '../pages/requestPage.dart';
 
 class BottomNavigation extends StatefulWidget {
   @override
@@ -13,7 +13,7 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    Home(),
+    Requests(),
     DonationsPage(),
     PostNew(),
     AccountPage(),

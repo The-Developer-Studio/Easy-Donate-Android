@@ -1,8 +1,7 @@
-import 'package:easydonatefinal/Post/category.dart';
+import 'package:easydonatefinal/pages/Post/category.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:easydonatefinal/widgets/field.dart';
 import 'package:flutter/material.dart';
-import 'package:easydonatefinal/main.dart';
 
 class BasicDetails extends StatefulWidget {
   @override
