@@ -18,10 +18,14 @@ class _RequestsListState extends State<RequestsList> {
           return ListView.builder(
               itemCount: snapshot.data.size,
               itemBuilder: (context, index) {
-                return ListCard(
-                  location: snapshot.data.docs[index]['location'],
-                  postedTime: duration(snapshot.data.docs[index]['postedTime']),
-                  title: snapshot.data.docs[index]['title'],
+                return GestureDetector(
+                  onTap: () {},
+                  child: ListCard(
+                    location: snapshot.data.docs[index]['location'],
+                    postedTime:
+                        duration(snapshot.data.docs[index]['postedTime']),
+                    title: snapshot.data.docs[index]['title'],
+                  ),
                 );
               });
         } else {

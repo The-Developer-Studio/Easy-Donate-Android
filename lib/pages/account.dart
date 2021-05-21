@@ -1,4 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:pay/pay.dart';
+import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
+
+import 'Post/temp.dart';
+import 'login.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -6,6 +12,19 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  bool _visible = true;
+
+  final _paymentItems = [
+    PaymentItem(
+      label: 'Total',
+      amount: '99.99',
+      status: PaymentItemStatus.final_price,
+    )
+  ];
+  void onGooglePayResult(paymentResult) {
+    debugPrint(paymentResult.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,15 +166,23 @@ class _AccountPageState extends State<AccountPage> {
                 padding: const EdgeInsets.all(55.0),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Donation history',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Icon(Icons.arrow_forward),
-                      ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MyApp1()),
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Donation history',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Icon(Icons.arrow_forward),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 20,
@@ -208,6 +235,47 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                         Icon(Icons.arrow_forward),
                       ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        FirebaseAuth.instance
+                            .signOut()
+                            .whenComplete(() => Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Login(
+                                          isSignup: false,
+                                        )),
+                                (route) => false));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Logout',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, color: Colors.red),
+                          ),
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Colors.red,
+                          ),
+                        ],
+                      ),
+                    ),
+                    GooglePayButton(
+                      paymentConfigurationAsset: 'gpay.json',
+                      paymentItems: _paymentItems,
+                      style: GooglePayButtonStyle.black,
+                      type: GooglePayButtonType.pay,
+                      margin: const EdgeInsets.only(top: 15.0),
+                      onPaymentResult: onGooglePayResult,
+                      loadingIndicator: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     ),
                   ],
                 ),
