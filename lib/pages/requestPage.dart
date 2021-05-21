@@ -1,9 +1,13 @@
+import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/pages/login.dart';
 import 'package:easydonatefinal/lists/requestList.dart';
+import 'package:easydonatefinal/pages/showdetails.dart';
 import 'package:easydonatefinal/widgets/appBar.dart';
+import 'package:easydonatefinal/widgets/listCard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';
 
 class Requests extends StatefulWidget {
   @override
@@ -11,6 +15,28 @@ class Requests extends StatefulWidget {
 }
 
 class _RequestsState extends State<Requests> {
+  ScrollController scrollController;
+
+  ///The controller of sliding up panel
+  SlidingUpPanelController panelController = SlidingUpPanelController();
+
+  @override
+  void initState() {
+    scrollController = ScrollController();
+    scrollController.addListener(() {
+      if (scrollController.offset >=
+              scrollController.position.maxScrollExtent &&
+          !scrollController.position.outOfRange) {
+        panelController.expand();
+      } else if (scrollController.offset <=
+              scrollController.position.minScrollExtent &&
+          !scrollController.position.outOfRange) {
+        panelController.anchor();
+      } else {}
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
@@ -25,21 +51,51 @@ class _RequestsState extends State<Requests> {
                 CustomAppBar(),
               ];
             },
-            body: RequestsList()),
+            body: StreamBuilder(
+              stream: getRequests(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                      itemCount: snapshot.data.size,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {},
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ShowDetails()),
+                              );
+                            },
+                            child: ListCard(
+                              location: snapshot.data.docs[index]['location'],
+                              postedTime: duration(
+                                  snapshot.data.docs[index]['postedTime']),
+                              title: snapshot.data.docs[index]['title'],
+                            ),
+                          ),
+                        );
+                      });
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              },
+            )),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          FirebaseAuth.instance
-              .signOut()
-              .whenComplete(() => Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Login(
-                            isSignup: false,
-                          )),
-                  (route) => false));
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     FirebaseAuth.instance
+      //         .signOut()
+      //         .whenComplete(() => Navigator.pushAndRemoveUntil(
+      //             context,
+      //             MaterialPageRoute(
+      //                 builder: (context) => Login(
+      //                       isSignup: false,
+      //                     )),
+      //             (route) => false));
+      //   },
+      // ),
     );
   }
 }
