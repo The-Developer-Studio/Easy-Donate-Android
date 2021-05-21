@@ -1,3 +1,4 @@
+import 'package:easydonatefinal/models/postModel.dart';
 import 'package:easydonatefinal/pages/Post/category.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:easydonatefinal/widgets/field.dart';
@@ -11,6 +12,12 @@ class BasicDetails extends StatefulWidget {
 class _BasicDetailsState extends State<BasicDetails> {
   @override
   Widget build(BuildContext context) {
+    final TextEditingController donorNameController =
+        new TextEditingController();
+    final TextEditingController donorAddressController =
+        new TextEditingController();
+    final TextEditingController cityController = new TextEditingController();
+    final TextEditingController countryController = new TextEditingController();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -34,24 +41,28 @@ class _BasicDetailsState extends State<BasicDetails> {
                 height: 40,
               ),
               CustomField(
+                controller: donorNameController,
                 labeltext: "Name of Donor",
               ),
               SizedBox(
                 height: 20,
               ),
               CustomField(
+                controller: donorAddressController,
                 labeltext: "Address of Donor",
               ),
               SizedBox(
                 height: 20,
               ),
               CustomField(
+                controller: cityController,
                 labeltext: "City",
               ),
               SizedBox(
                 height: 20,
               ),
               CustomField(
+                controller: countryController,
                 labeltext: "Country",
               ),
               SizedBox(
@@ -60,10 +71,23 @@ class _BasicDetailsState extends State<BasicDetails> {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CategoryPage()),
-                    );
+                    try {
+                      assert(donorAddressController.text.trim() != '');
+                      assert(donorNameController.text.trim() != '');
+                      assert(cityController.text.trim() != '');
+                      assert(countryController.text.trim() != '');
+                      post.donorName = donorNameController.text;
+                      post.donorAddress = donorAddressController.text;
+                      post.city = cityController.text;
+                      post.country = countryController.text;
+                      print(post.type);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CategoryPage()),
+                      );
+                    } on AssertionError {
+                      print('Check the Fields');
+                    }
                   },
                   child: Container(
                     height: 40,
