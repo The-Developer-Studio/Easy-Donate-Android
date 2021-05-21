@@ -1,10 +1,9 @@
-import 'dart:io';
+import 'package:easydonatefinal/models/postModel.dart';
 import 'package:easydonatefinal/pages/Post/expiry.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:easydonatefinal/widgets/field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 
 class DonationDetails extends StatefulWidget {
@@ -78,6 +77,10 @@ class _DonationDetailsState extends State<DonationDetails> {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController nameController = new TextEditingController();
+    final TextEditingController descController = new TextEditingController();
+    final TextEditingController quantityController =
+        new TextEditingController();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -101,18 +104,21 @@ class _DonationDetailsState extends State<DonationDetails> {
                 height: 40,
               ),
               CustomField(
+                controller: nameController,
                 labeltext: "Name of Product",
               ),
               SizedBox(
                 height: 20,
               ),
               CustomField(
+                controller: descController,
                 labeltext: "Description",
               ),
               SizedBox(
                 height: 20,
               ),
               CustomField(
+                controller: quantityController,
                 labeltext: "Quantity",
               ),
               SizedBox(
@@ -149,10 +155,21 @@ class _DonationDetailsState extends State<DonationDetails> {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ExpiryPage()),
-                    );
+                    try {
+                      assert(nameController.text.trim() != '');
+                      assert(descController.text.trim() != '');
+                      post.productName = nameController.text;
+                      post.description = descController.text;
+                      post.quantity = int.parse(quantityController.text);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ExpiryPage()),
+                      );
+                    } on AssertionError {
+                      print('Check the Fields');
+                    } on FormatException {
+                      print('Quantity must be a number');
+                    }
                   },
                   child: Container(
                     height: 40,

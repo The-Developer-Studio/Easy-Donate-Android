@@ -1,11 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 getRequests() {
-  return FirebaseFirestore.instance.collection('requests').snapshots();
+  return FirebaseFirestore.instance.collection('Request').snapshots();
 }
 
 getDonations() {
-  return FirebaseFirestore.instance.collection('donations').snapshots();
+  return FirebaseFirestore.instance.collection('Donation').snapshots();
+}
+
+getCategories() {
+  return FirebaseFirestore.instance.collection('categories').snapshots();
 }
 
 // ignore: missing_return

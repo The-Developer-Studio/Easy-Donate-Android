@@ -1,3 +1,6 @@
+import 'package:easydonatefinal/backend/data.dart';
+import 'package:easydonatefinal/models/postModel.dart';
+
 import 'donationdetails.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:easydonatefinal/widgets/categorytile.dart';
@@ -33,43 +36,47 @@ class _CategoryPageState extends State<CategoryPage> {
               SizedBox(
                 height: 40,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CategoryTile(
-                    icondata: Icons.fastfood,
-                    label: 'Food',
-                  ),
-                  CategoryTile(
-                    icondata: Icons.fastfood,
-                    label: 'Clothes',
-                  ),
-                  CategoryTile(
-                    icondata: Icons.fastfood,
-                    label: 'Drinks',
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CategoryTile(
-                    icondata: Icons.fastfood,
-                    label: 'Food',
-                  ),
-                  CategoryTile(
-                    icondata: Icons.fastfood,
-                    label: 'Clothes',
-                  ),
-                  CategoryTile(
-                    icondata: Icons.ac_unit_outlined,
-                    label: 'Others',
-                  ),
-                ],
-              ),
+              StreamBuilder(
+                  stream: getCategories(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data.size,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                post.category =
+                                    snapshot.data.docs[index]['name'];
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DonationDetails()),
+                                );
+                              },
+                              child: Container(
+                                child: Row(
+                                  children: [
+                                    Container(),
+                                    CategoryTile(
+                                      icondata: IconData(
+                                          snapshot.data.docs[index]['icon'],
+                                          fontFamily: 'MaterialIcons'),
+                                      label: snapshot.data.docs[index]['name'],
+                                    ),
+                                    Container()
+                                  ],
+                                ),
+                              ),
+                            );
+                          });
+                    } else {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  }),
               SizedBox(
                 height: 60,
               ),

@@ -41,7 +41,8 @@ class _FieldState extends State<Field> {
 
 class CustomField extends StatefulWidget {
   final String labeltext;
-  CustomField({Key key, this.labeltext}) : super(key: key);
+  final TextEditingController controller;
+  CustomField({Key key, this.labeltext, this.controller}) : super(key: key);
 
   @override
   _CustomFieldState createState() => _CustomFieldState();
@@ -51,6 +52,7 @@ class _CustomFieldState extends State<CustomField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: widget.controller,
       style: TextStyle(fontSize: 13),
       decoration: InputDecoration(hintText: widget.labeltext),
     );

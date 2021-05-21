@@ -37,6 +37,7 @@ dependencies:
   multi_image_picker: ^4.8.01
   pay: ^1.0.1
   flutter_sliding_up_panel: ^1.2.1
+  provider:
 
 dev_dependencies:
   flutter_test:

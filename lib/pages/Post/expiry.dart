@@ -1,3 +1,5 @@
+import 'package:easydonatefinal/models/postModel.dart';
+import 'package:easydonatefinal/pages/Post/review.dart';
 import 'package:easydonatefinal/pages/Post/success.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:flutter/cupertino.dart';
@@ -149,9 +151,10 @@ class _ExpiryPageState extends State<ExpiryPage> {
               Center(
                 child: GestureDetector(
                   onTap: () {
+                    post.expiry = currentDate;
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SuccessPage()),
+                      MaterialPageRoute(builder: (context) => ReviewPage()),
                     );
                   },
                   child: Container(

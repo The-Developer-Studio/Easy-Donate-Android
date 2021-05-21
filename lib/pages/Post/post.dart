@@ -1,3 +1,4 @@
+import 'package:easydonatefinal/models/postModel.dart';
 import 'package:easydonatefinal/pages/Post/basicdetails.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,12 @@ class _PostNewState extends State<PostNew> {
       _containertext1 = _containertext2;
       _containertext2 = _temp2;
     });
+  }
+
+  @override
+  void initState() {
+    post.type = 'Donation';
+    super.initState();
   }
 
   @override
@@ -54,7 +61,11 @@ class _PostNewState extends State<PostNew> {
               Padding(
                 padding: const EdgeInsets.only(right: 25.0),
                 child: GestureDetector(
-                  onTap: changeColor,
+                  onTap: () {
+                    changeColor();
+                    post.type = 'Donation';
+                    print(post.type);
+                  },
                   child: Container(
                     width: 500,
                     decoration: BoxDecoration(
@@ -78,7 +89,11 @@ class _PostNewState extends State<PostNew> {
               Padding(
                 padding: const EdgeInsets.only(right: 25.0),
                 child: GestureDetector(
-                  onTap: changeColor,
+                  onTap: () {
+                    changeColor();
+                    post.type = 'Request';
+                    print(post.type);
+                  },
                   child: Container(
                     width: 500,
                     decoration: BoxDecoration(
@@ -89,7 +104,7 @@ class _PostNewState extends State<PostNew> {
                     height: 50,
                     child: Center(
                         child: Text(
-                      'I am ready to donate',
+                      'I need something',
                       style: TextStyle(
                           color: _containertext2, fontWeight: FontWeight.bold),
                     )),
