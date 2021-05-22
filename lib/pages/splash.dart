@@ -15,9 +15,13 @@ class _SplashState extends State<Splash> {
         seconds: 3,
         navigateAfterSeconds: AfterSplash(),
         image: Image.asset('images/logo.png'),
+        title: Text(
+          'Easy Donate',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.white,
         styleTextUnderTheLoader: new TextStyle(),
-        photoSize: 100.0,
+        photoSize: 50.0,
         loaderColor: Colors.deepOrangeAccent);
   }
 }
