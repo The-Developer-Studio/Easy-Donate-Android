@@ -50,11 +50,11 @@ class _SuccessPageState extends State<SuccessPage> {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => BottomNavigation()),
-                    );
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BottomNavigation()),
+                        (route) => false);
                   },
                   child: Container(
                     height: 40,

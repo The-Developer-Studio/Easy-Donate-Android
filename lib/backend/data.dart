@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 getRequests() {
   return FirebaseFirestore.instance.collection('Request').snapshots();
@@ -10,6 +11,20 @@ getDonations() {
 
 getCategories() {
   return FirebaseFirestore.instance.collection('categories').snapshots();
+}
+
+getUserDonations() {
+  return FirebaseFirestore.instance
+      .collection('Donation')
+      .where('user', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+      .snapshots();
+}
+
+getUserRequests() {
+  return FirebaseFirestore.instance
+      .collection('Request')
+      .where('user', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+      .snapshots();
 }
 
 // ignore: missing_return
