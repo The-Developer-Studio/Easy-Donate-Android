@@ -11,8 +11,8 @@ class CustomAppBar extends StatelessWidget {
       expandedHeight: 250.0,
       collapsedHeight: 90,
 
-      // floating: false,
-      pinned: true,
+      floating: false,
+      // pinned: true,
       elevation: 0,
       backgroundColor: Colors.transparent,
       flexibleSpace: FlexibleSpaceBar(
@@ -53,7 +53,7 @@ class CustomAppBar extends StatelessWidget {
                         borderSide:
                             BorderSide(color: Colors.transparent, width: 2),
                       ),
-                      hintText: 'Enter a search term',
+                      hintText: 'Search anything',
                       hintStyle: TextStyle(fontSize: 9)),
                 ),
               ),
