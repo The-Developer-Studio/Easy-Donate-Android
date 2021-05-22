@@ -66,7 +66,6 @@ class _PostNewState extends State<PostNew> {
                   onTap: () {
                     changeColor();
                     post.type = 'Donation';
-                    print(post.type);
                   },
                   child: Container(
                     width: 500,
@@ -94,7 +93,6 @@ class _PostNewState extends State<PostNew> {
                   onTap: () {
                     changeColor();
                     post.type = 'Request';
-                    print(post.type);
                   },
                   child: Container(
                     width: 500,

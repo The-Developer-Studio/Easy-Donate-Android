@@ -3,6 +3,7 @@ import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/models/postModel.dart';
 import 'package:easydonatefinal/pages/Post/success.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ReviewPage extends StatefulWidget {
@@ -252,7 +253,8 @@ class _ReviewPageState extends State<ReviewPage> {
                       "desc": post.description,
                       "quantity": post.quantity,
                       "time": post.expiry,
-                      "postedTime": DateTime.now()
+                      "postedTime": DateTime.now(),
+                      "user": FirebaseAuth.instance.currentUser.uid,
                     });
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => SuccessPage()));
