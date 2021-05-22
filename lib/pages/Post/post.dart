@@ -147,11 +147,6 @@ class _PostNewState extends State<PostNew> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          cachingDonation();
-        },
-      ),
     );
   }
 }
