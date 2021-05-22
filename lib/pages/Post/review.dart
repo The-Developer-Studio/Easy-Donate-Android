@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/models/postModel.dart';
 import 'package:easydonatefinal/pages/Post/success.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +44,7 @@ class _ReviewPageState extends State<ReviewPage> {
             "time": post.expiry,
             "postedTime": DateTime.now()
           });
+          cachingDonation();
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => SuccessPage()));
         },

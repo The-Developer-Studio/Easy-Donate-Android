@@ -1,3 +1,4 @@
+import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/models/postModel.dart';
 import 'package:easydonatefinal/pages/Post/basicdetails.dart';
 import 'package:flutter/cupertino.dart';
@@ -145,6 +146,11 @@ class _PostNewState extends State<PostNew> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          cachingDonation();
+        },
       ),
     );
   }
