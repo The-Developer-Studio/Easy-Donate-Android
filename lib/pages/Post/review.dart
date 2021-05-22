@@ -44,7 +44,6 @@ class _ReviewPageState extends State<ReviewPage> {
             "time": post.expiry,
             "postedTime": DateTime.now()
           });
-          cachingDonation();
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => SuccessPage()));
         },
