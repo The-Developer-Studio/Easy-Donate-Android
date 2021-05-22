@@ -2,6 +2,7 @@ import 'package:easydonatefinal/backend/authentication.dart';
 import 'package:easydonatefinal/widgets/field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 // Login Screen and SignUp Screen
 class Login extends StatefulWidget {
@@ -92,7 +93,8 @@ class _LoginState extends State<Login> {
                           authRegister(emailController.text,
                               passwordController.text, context);
                         } else {
-                          print("Entered Passwords did not match");
+                          Fluttertoast.showToast(
+                              msg: 'Entered Passwords do not match');
                         }
                       } else {
                         authLogin(emailController.text, passwordController.text,

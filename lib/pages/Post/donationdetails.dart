@@ -4,6 +4,7 @@ import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:easydonatefinal/widgets/field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 
 class DonationDetails extends StatefulWidget {
@@ -12,21 +13,6 @@ class DonationDetails extends StatefulWidget {
 }
 
 class _DonationDetailsState extends State<DonationDetails> {
-  // File _image;
-  // final picker = ImagePicker();
-  //
-  // Future getImage() async {
-  //   final pickedFile = await picker.getImage(source: ImageSource.gallery);
-  //
-  //   setState(() {
-  //     if (pickedFile != null) {
-  //       _image = File(pickedFile.path);
-  //     } else {
-  //       print('No image selected.');
-  //     }
-  //   });
-  // }
-
   List<Asset> images = <Asset>[];
 
   Widget buildGridView() {
@@ -155,20 +141,20 @@ class _DonationDetailsState extends State<DonationDetails> {
               Center(
                 child: GestureDetector(
                   onTap: () {
+                    FocusScope.of(context).unfocus();
                     try {
                       assert(nameController.text.trim() != '');
                       assert(descController.text.trim() != '');
                       post.productName = nameController.text;
                       post.description = descController.text;
-                      post.quantity = int.parse(quantityController.text);
+                      post.quantity = quantityController.text;
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => ExpiryPage()),
                       );
                     } on AssertionError {
-                      print('Check the Fields');
-                    } on FormatException {
-                      print('Quantity must be a number');
+                      Fluttertoast.showToast(
+                          msg: 'None of the Fields can be Empty');
                     }
                   },
                   child: Container(

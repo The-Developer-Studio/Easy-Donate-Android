@@ -38,6 +38,7 @@ dependencies:
   pay: ^1.0.1
   flutter_sliding_up_panel: ^1.2.1
   provider:
+  fluttertoast: ^8.0.7
 
 dev_dependencies:
   flutter_test:

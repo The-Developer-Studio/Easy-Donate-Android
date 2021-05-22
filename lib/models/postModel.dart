@@ -9,7 +9,7 @@ class PostModel extends ChangeNotifier {
   String category;
   String productName;
   String description;
-  int quantity;
+  String quantity;
   DateTime expiry;
   PostModel() {
     type = '';
@@ -20,7 +20,7 @@ class PostModel extends ChangeNotifier {
     category = '';
     productName = '';
     description = '';
-    quantity = 0;
+    quantity = '';
     expiry = DateTime.now();
   }
 }

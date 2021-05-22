@@ -1,8 +1,10 @@
+import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/models/postModel.dart';
 import 'package:easydonatefinal/pages/Post/category.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:easydonatefinal/widgets/field.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class BasicDetails extends StatefulWidget {
   @override
@@ -18,6 +20,7 @@ class _BasicDetailsState extends State<BasicDetails> {
         new TextEditingController();
     final TextEditingController cityController = new TextEditingController();
     final TextEditingController countryController = new TextEditingController();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -71,6 +74,7 @@ class _BasicDetailsState extends State<BasicDetails> {
               Center(
                 child: GestureDetector(
                   onTap: () {
+                    FocusScope.of(context).unfocus();
                     try {
                       assert(donorAddressController.text.trim() != '');
                       assert(donorNameController.text.trim() != '');
@@ -80,13 +84,13 @@ class _BasicDetailsState extends State<BasicDetails> {
                       post.donorAddress = donorAddressController.text;
                       post.city = cityController.text;
                       post.country = countryController.text;
-                      print(post.type);
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => CategoryPage()),
                       );
                     } on AssertionError {
-                      print('Check the Fields');
+                      Fluttertoast.showToast(
+                          msg: 'None of the Fields can be Empty.');
                     }
                   },
                   child: Container(
