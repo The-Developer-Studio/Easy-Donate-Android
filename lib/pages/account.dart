@@ -1,4 +1,6 @@
 import 'package:easydonatefinal/pages/developerDonation.dart';
+import 'package:easydonatefinal/pages/userDonations.dart';
+import 'package:easydonatefinal/pages/userRequests.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'login.dart';
@@ -152,10 +154,11 @@ class _AccountPageState extends State<AccountPage> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => MyApp1()),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => UserDonations()),
+                        );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -171,15 +174,21 @@ class _AccountPageState extends State<AccountPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Request history',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Icon(Icons.arrow_forward),
-                      ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => UserRequests()));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Request history',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Icon(Icons.arrow_forward),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 20,
