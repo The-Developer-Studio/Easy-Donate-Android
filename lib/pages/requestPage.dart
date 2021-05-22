@@ -1,10 +1,7 @@
 import 'package:easydonatefinal/backend/data.dart';
-import 'package:easydonatefinal/pages/login.dart';
-import 'package:easydonatefinal/lists/requestList.dart';
 import 'package:easydonatefinal/pages/showdetails.dart';
 import 'package:easydonatefinal/widgets/appBar.dart';
 import 'package:easydonatefinal/widgets/listCard.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_up_panel/sliding_up_panel_widget.dart';

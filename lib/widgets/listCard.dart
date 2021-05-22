@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ListCard extends StatefulWidget {
@@ -18,25 +19,70 @@ class _ListCardState extends State<ListCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 7),
       child: Card(
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [Text(widget.title), Text(widget.postedTime)],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(widget.location),
-                Text(
-                  'View',
-                  style: TextStyle(color: Colors.orange),
-                )
-              ],
-            )
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.title,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    widget.postedTime,
+                    style: TextStyle(fontSize: 10, color: Colors.black45),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_on_outlined,
+                        size: 12,
+                        color: Colors.black45,
+                      ),
+                      SizedBox(
+                        width: 2,
+                      ),
+                      Text(
+                        widget.location,
+                        style: TextStyle(fontSize: 12, color: Colors.black45),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'View',
+                        style: TextStyle(
+                            color: Colors.orange,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        width: 4,
+                      ),
+                      Icon(
+                        Icons.arrow_forward,
+                        size: 12,
+                        color: Colors.deepOrange,
+                      ),
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

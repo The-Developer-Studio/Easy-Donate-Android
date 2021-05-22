@@ -1,6 +1,7 @@
 import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/models/postModel.dart';
 import 'package:easydonatefinal/pages/Post/basicdetails.dart';
+import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -141,8 +142,9 @@ class _PostNewState extends State<PostNew> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 130,
               ),
+              Branding(),
             ],
           ),
         ),

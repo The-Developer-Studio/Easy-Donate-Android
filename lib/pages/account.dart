@@ -1,9 +1,6 @@
+import 'package:easydonatefinal/pages/developerDonation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pay/pay.dart';
-import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
-
-import 'Post/temp.dart';
 import 'login.dart';
 
 class AccountPage extends StatefulWidget {
@@ -12,19 +9,6 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  bool _visible = true;
-
-  final _paymentItems = [
-    PaymentItem(
-      label: 'Total',
-      amount: '99.99',
-      status: PaymentItemStatus.final_price,
-    )
-  ];
-  void onGooglePayResult(paymentResult) {
-    debugPrint(paymentResult.toString());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -168,10 +152,10 @@ class _AccountPageState extends State<AccountPage> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => MyApp1()),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => MyApp1()),
+                        // );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -196,6 +180,33 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                         Icon(Icons.arrow_forward),
                       ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DeveloperDonation()),
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Donate for Developers',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue),
+                          ),
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Colors.blue,
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 20,
@@ -266,17 +277,33 @@ class _AccountPageState extends State<AccountPage> {
                         ],
                       ),
                     ),
-                    GooglePayButton(
-                      paymentConfigurationAsset: 'gpay.json',
-                      paymentItems: _paymentItems,
-                      style: GooglePayButtonStyle.black,
-                      type: GooglePayButtonType.pay,
-                      margin: const EdgeInsets.only(top: 15.0),
-                      onPaymentResult: onGooglePayResult,
-                      loadingIndicator: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                    SizedBox(
+                      height: 60,
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Built with',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Icon(
+                          Icons.favorite,
+                          color: Colors.deepOrange,
+                        ),
+                        Text(
+                          '  by ',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          'theDeveloperStudio ',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.deepOrange),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               )
