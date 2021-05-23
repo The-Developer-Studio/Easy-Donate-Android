@@ -1,4 +1,5 @@
 import 'package:easydonatefinal/backend/data.dart';
+import 'package:easydonatefinal/pages/showdetails.dart';
 import 'package:easydonatefinal/widgets/listCard.dart';
 import 'package:flutter/material.dart';
 
@@ -125,13 +126,31 @@ class _UserDonationsState extends State<UserDonations> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              child: Container(
-                                child: ListCard(
-                                  location: snapshot.data.docs[index]
-                                      ['location'],
-                                  postedTime: duration(
-                                      snapshot.data.docs[index]['postedTime']),
-                                  title: snapshot.data.docs[index]['title'],
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ShowDetails(
+                                              category: snapshot
+                                                  .data.docs[index]['category'],
+                                              desc: snapshot.data.docs[index]
+                                                  ['desc'],
+                                              location: snapshot
+                                                  .data.docs[index]['location'],
+                                              quantity: snapshot
+                                                  .data.docs[index]['quantity'],
+                                            )),
+                                  );
+                                },
+                                child: Container(
+                                  child: ListCard(
+                                    location: snapshot.data.docs[index]
+                                        ['location'],
+                                    postedTime: duration(snapshot
+                                        .data.docs[index]['postedTime']),
+                                    title: snapshot.data.docs[index]['title'],
+                                  ),
                                 ),
                               ),
                             ),
