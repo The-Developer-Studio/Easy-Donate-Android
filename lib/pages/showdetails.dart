@@ -4,6 +4,18 @@ import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:flutter/material.dart';
 
 class ShowDetails extends StatefulWidget {
+  final String location;
+  final String category;
+  final String quantity;
+  final String desc;
+
+  const ShowDetails(
+      {Key key,
+      @required this.location,
+      @required this.category,
+      @required this.quantity,
+      @required this.desc})
+      : super(key: key);
   @override
   _ShowDetailsState createState() => _ShowDetailsState();
 }
@@ -72,7 +84,7 @@ class _ShowDetailsState extends State<ShowDetails> {
                                 color: Colors.black54,
                               ),
                               Text(
-                                "Bengaluru, India",
+                                widget.location,
                                 style: TextStyle(
                                     color: Colors.black54, fontSize: 12),
                               ),
@@ -111,7 +123,7 @@ class _ShowDetailsState extends State<ShowDetails> {
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                ' Clothes',
+                                widget.category,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
@@ -127,7 +139,7 @@ class _ShowDetailsState extends State<ShowDetails> {
                                     fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                ' 1000 Units',
+                                widget.quantity,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -151,7 +163,7 @@ class _ShowDetailsState extends State<ShowDetails> {
                         height: 10,
                       ),
                       Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
+                        widget.desc,
                         style: TextStyle(
                             color: Colors.black,
                             // fontWeight: FontWeight.bold,

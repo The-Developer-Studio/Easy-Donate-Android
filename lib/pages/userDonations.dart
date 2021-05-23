@@ -55,6 +55,27 @@ class _UserDonationsState extends State<UserDonations> {
     );
   }
 
+  Future<void> _showEditDialog() async {
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text(
+              'Edit Post',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: [
+                  Text('Text Box'),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -126,11 +147,16 @@ class _UserDonationsState extends State<UserDonations> {
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 20),
-                              child: Icon(
-                                Icons.edit,
-                                color: Colors.deepPurple,
+                            GestureDetector(
+                              onTap: () {
+                                _showEditDialog();
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 20),
+                                child: Icon(
+                                  Icons.edit,
+                                  color: Colors.deepPurple,
+                                ),
                               ),
                             ),
                           ],

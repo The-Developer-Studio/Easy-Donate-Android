@@ -56,21 +56,26 @@ class _RequestsState extends State<Requests> {
                       itemCount: snapshot.data.size,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () {},
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ShowDetails()),
-                              );
-                            },
-                            child: ListCard(
-                              location: snapshot.data.docs[index]['location'],
-                              postedTime: duration(
-                                  snapshot.data.docs[index]['postedTime']),
-                              title: snapshot.data.docs[index]['title'],
-                            ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ShowDetails(
+                                        category: snapshot.data.docs[index]
+                                            ['category'],
+                                        desc: snapshot.data.docs[index]['desc'],
+                                        location: snapshot.data.docs[index]
+                                            ['location'],
+                                        quantity: snapshot.data.docs[index]
+                                            ['quantity'],
+                                      )),
+                            );
+                          },
+                          child: ListCard(
+                            location: snapshot.data.docs[index]['location'],
+                            postedTime: duration(
+                                snapshot.data.docs[index]['postedTime']),
+                            title: snapshot.data.docs[index]['title'],
                           ),
                         );
                       });
