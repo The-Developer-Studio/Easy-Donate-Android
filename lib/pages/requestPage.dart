@@ -1,4 +1,5 @@
 import 'package:easydonatefinal/backend/data.dart';
+import 'package:easydonatefinal/lists/requestList.dart';
 import 'package:easydonatefinal/pages/showdetails.dart';
 import 'package:easydonatefinal/widgets/appBar.dart';
 import 'package:easydonatefinal/widgets/listCard.dart';
@@ -48,56 +49,8 @@ class _RequestsState extends State<Requests> {
                 CustomAppBar(),
               ];
             },
-            body: StreamBuilder(
-              stream: getRequests(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                      itemCount: snapshot.data.size,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ShowDetails(
-                                        category: snapshot.data.docs[index]
-                                            ['category'],
-                                        desc: snapshot.data.docs[index]['desc'],
-                                        location: snapshot.data.docs[index]
-                                            ['location'],
-                                        quantity: snapshot.data.docs[index]
-                                            ['quantity'],
-                                      )),
-                            );
-                          },
-                          child: ListCard(
-                            location: snapshot.data.docs[index]['location'],
-                            postedTime: duration(
-                                snapshot.data.docs[index]['postedTime']),
-                            title: snapshot.data.docs[index]['title'],
-                          ),
-                        );
-                      });
-                } else {
-                  return Center(child: CircularProgressIndicator());
-                }
-              },
-            )),
+            body: RequestsList()),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     FirebaseAuth.instance
-      //         .signOut()
-      //         .whenComplete(() => Navigator.pushAndRemoveUntil(
-      //             context,
-      //             MaterialPageRoute(
-      //                 builder: (context) => Login(
-      //                       isSignup: false,
-      //                     )),
-      //             (route) => false));
-      //   },
-      // ),
     );
   }
 }
