@@ -1,3 +1,4 @@
+import 'package:easydonatefinal/pages/showdetails.dart';
 import 'package:easydonatefinal/widgets/listCard.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,18 @@ class _RequestsListState extends State<RequestsList> {
               itemCount: snapshot.data.size,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ShowDetails(
+                                category: snapshot.data.docs[index]['category'],
+                                desc: snapshot.data.docs[index]['desc'],
+                                location: snapshot.data.docs[index]['location'],
+                                quantity: snapshot.data.docs[index]['quantity'],
+                              )),
+                    );
+                  },
                   child: ListCard(
                     location: snapshot.data.docs[index]['location'],
                     postedTime:
