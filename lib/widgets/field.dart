@@ -4,7 +4,15 @@ class Field extends StatefulWidget {
   final String label;
   final TextEditingController controller;
   final bool ispass;
-  const Field({Key key, this.label, this.controller, this.ispass})
+  final bool isNumber;
+  final bool isAddress;
+  const Field(
+      {Key key,
+      this.label,
+      this.controller,
+      this.ispass,
+      this.isNumber,
+      this.isAddress})
       : super(key: key);
   @override
   _FieldState createState() => _FieldState();
@@ -22,6 +30,8 @@ class _FieldState extends State<Field> {
               borderRadius: BorderRadius.circular(5),
               border: Border.all(color: Colors.black12)),
           child: TextField(
+            keyboardType:
+                keyboardType(address: widget.isAddress, phone: widget.isNumber),
             obscureText: widget.ispass,
             controller: widget.controller,
             decoration: InputDecoration(
@@ -36,6 +46,16 @@ class _FieldState extends State<Field> {
         ),
       ],
     );
+  }
+}
+
+TextInputType keyboardType({bool phone, bool address}) {
+  if (phone) {
+    return TextInputType.phone;
+  } else if (address) {
+    return TextInputType.streetAddress;
+  } else {
+    return TextInputType.text;
   }
 }
 
