@@ -1,4 +1,3 @@
-import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/models/postModel.dart';
 import 'package:easydonatefinal/pages/Post/basicdetails.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
