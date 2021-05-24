@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easydonatefinal/backend/authentication.dart';
+import 'package:easydonatefinal/backend/controllers.dart';
+import 'package:easydonatefinal/widgets/bottomNavigation.dart';
 import 'package:easydonatefinal/widgets/field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -99,6 +102,24 @@ class _LoginState extends State<Login> {
               widget.isSignup
                   ? Field(
                       isAddress: false,
+                      isNumber: false,
+                      label: 'City',
+                      controller: cityController,
+                      ispass: false,
+                    )
+                  : Container(),
+              widget.isSignup
+                  ? Field(
+                      isAddress: false,
+                      isNumber: false,
+                      label: 'Country',
+                      controller: countryController,
+                      ispass: false,
+                    )
+                  : Container(),
+              widget.isSignup
+                  ? Field(
+                      isAddress: false,
                       isNumber: true,
                       label: 'Mobile Number',
                       controller: mobileController,
@@ -122,7 +143,7 @@ class _LoginState extends State<Login> {
                       backgroundColor:
                           MaterialStateProperty.all(Colors.deepOrangeAccent),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (widget.isSignup) {
                         try {
                           assert(emailController.text.trim() != '' &&
@@ -135,12 +156,39 @@ class _LoginState extends State<Login> {
                               nameController.text != null);
                           assert(addressController.text.trim() != '' &&
                               addressController.text != null);
+                          assert(cityController.text.trim() != '' &&
+                              cityController.text != null);
+                          assert(countryController.text.trim() != '' &&
+                              countryController.text != null);
                           assert(mobileController.text.trim() != '' &&
                               mobileController.text != null);
                           if (passwordController.text ==
                               confirmPasswordController.text) {
-                            authRegister(emailController.text,
+                            var uid = await authRegister(emailController.text,
                                 passwordController.text, context);
+                            FirebaseFirestore.instance
+                                .collection('userDetails')
+                                .add({
+                              "uid": uid,
+                              "email": emailController.text,
+                              "name": nameController.text,
+                              "address": addressController.text,
+                              "mobile": mobileController.text,
+                              "location":
+                                  '${cityController.text},${countryController.text}'
+                            });
+                            emailController.text = null;
+                            passwordController.text = null;
+                            confirmPasswordController.text = null;
+                            nameController.text = null;
+                            addressController.text = null;
+                            mobileController.text = null;
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => Login(
+                                          isSignup: false,
+                                        )),
+                                (route) => false);
                           } else {
                             Fluttertoast.showToast(
                                 msg: 'Entered Passwords do not match');
@@ -152,6 +200,12 @@ class _LoginState extends State<Login> {
                       } else {
                         authLogin(emailController.text, passwordController.text,
                             context);
+                        emailController.text = null;
+                        passwordController.text = null;
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => BottomNavigation()),
+                            (route) => false);
                       }
                     },
                   ),
