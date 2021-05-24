@@ -1,4 +1,4 @@
-import 'package:easydonatefinal/backend/data.dart';
+import 'package:easydonatefinal/backend/controllers.dart';
 import 'package:easydonatefinal/models/postModel.dart';
 import 'package:easydonatefinal/pages/Post/category.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
@@ -14,13 +14,6 @@ class BasicDetails extends StatefulWidget {
 class _BasicDetailsState extends State<BasicDetails> {
   @override
   Widget build(BuildContext context) {
-    final TextEditingController donorNameController =
-        new TextEditingController();
-    final TextEditingController donorAddressController =
-        new TextEditingController();
-    final TextEditingController cityController = new TextEditingController();
-    final TextEditingController countryController = new TextEditingController();
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -45,14 +38,18 @@ class _BasicDetailsState extends State<BasicDetails> {
               ),
               CustomField(
                 controller: donorNameController,
-                labeltext: "Name of Donor",
+                labeltext: post.type == "Donation"
+                    ? "Name of Donor"
+                    : "Name of Requester",
               ),
               SizedBox(
                 height: 20,
               ),
               CustomField(
                 controller: donorAddressController,
-                labeltext: "Address of Donor",
+                labeltext: post.type == "Donation"
+                    ? "Address of Donor"
+                    : "Address of Requester",
               ),
               SizedBox(
                 height: 20,

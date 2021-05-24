@@ -1,3 +1,4 @@
+import 'package:easydonatefinal/backend/controllers.dart';
 import 'package:easydonatefinal/models/postModel.dart';
 import 'package:easydonatefinal/pages/Post/expiry.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
@@ -63,10 +64,6 @@ class _DonationDetailsState extends State<DonationDetails> {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController nameController = new TextEditingController();
-    final TextEditingController descController = new TextEditingController();
-    final TextEditingController quantityController =
-        new TextEditingController();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -80,7 +77,9 @@ class _DonationDetailsState extends State<DonationDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Donation details',
+                post.type == "Donation"
+                    ? 'Donation details'
+                    : 'Request Details',
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -110,22 +109,24 @@ class _DonationDetailsState extends State<DonationDetails> {
               SizedBox(
                 height: 40,
               ),
-              GestureDetector(
-                onTap: loadAssets,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Attach Images',
-                        style: TextStyle(
+              post.type == 'Donation'
+                  ? GestureDetector(
+                      onTap: loadAssets,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Attach Images',
+                              style: TextStyle(
+                                  color: Colors.deepOrange,
+                                  fontWeight: FontWeight.bold)),
+                          Icon(
+                            Icons.attach_file_rounded,
                             color: Colors.deepOrange,
-                            fontWeight: FontWeight.bold)),
-                    Icon(
-                      Icons.attach_file_rounded,
-                      color: Colors.deepOrange,
+                          )
+                        ],
+                      ),
                     )
-                  ],
-                ),
-              ),
+                  : Container(),
               SizedBox(
                 height: 20,
               ),

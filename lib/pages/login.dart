@@ -19,6 +19,9 @@ class _LoginState extends State<Login> {
     var emailController = new TextEditingController();
     var passwordController = new TextEditingController();
     var confirmPasswordController = new TextEditingController();
+    var nameController = new TextEditingController();
+    var addressController = new TextEditingController();
+    var mobileController = new TextEditingController();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -53,20 +56,53 @@ class _LoginState extends State<Login> {
                 height: 30,
               ),
               Field(
+                isAddress: false,
+                isNumber: false,
                 label: 'Email',
                 controller: emailController,
                 ispass: false,
               ),
               Field(
+                isAddress: false,
+                isNumber: false,
                 label: 'Password',
                 controller: passwordController,
                 ispass: true,
               ),
               widget.isSignup
                   ? Field(
+                      isAddress: false,
+                      isNumber: false,
                       label: 'Confirm Password',
                       controller: confirmPasswordController,
                       ispass: true,
+                    )
+                  : Container(),
+              widget.isSignup
+                  ? Field(
+                      isAddress: false,
+                      isNumber: false,
+                      label: 'Name',
+                      controller: nameController,
+                      ispass: false,
+                    )
+                  : Container(),
+              widget.isSignup
+                  ? Field(
+                      isAddress: true,
+                      isNumber: false,
+                      label: 'Address',
+                      controller: addressController,
+                      ispass: false,
+                    )
+                  : Container(),
+              widget.isSignup
+                  ? Field(
+                      isAddress: false,
+                      isNumber: true,
+                      label: 'Mobile Number',
+                      controller: mobileController,
+                      ispass: false,
                     )
                   : Container(),
               Center(
@@ -88,13 +124,30 @@ class _LoginState extends State<Login> {
                     ),
                     onPressed: () {
                       if (widget.isSignup) {
-                        if (passwordController.text ==
-                            confirmPasswordController.text) {
-                          authRegister(emailController.text,
-                              passwordController.text, context);
-                        } else {
+                        try {
+                          assert(emailController.text.trim() != '' &&
+                              emailController.text != null);
+                          assert(passwordController.text.trim() != '' &&
+                              passwordController.text != null);
+                          assert(confirmPasswordController.text.trim() != '' &&
+                              confirmPasswordController.text != null);
+                          assert(nameController.text.trim() != '' &&
+                              nameController.text != null);
+                          assert(addressController.text.trim() != '' &&
+                              addressController.text != null);
+                          assert(mobileController.text.trim() != '' &&
+                              mobileController.text != null);
+                          if (passwordController.text ==
+                              confirmPasswordController.text) {
+                            authRegister(emailController.text,
+                                passwordController.text, context);
+                          } else {
+                            Fluttertoast.showToast(
+                                msg: 'Entered Passwords do not match');
+                          }
+                        } on AssertionError {
                           Fluttertoast.showToast(
-                              msg: 'Entered Passwords do not match');
+                              msg: 'None of the Fields can be Empty');
                         }
                       } else {
                         authLogin(emailController.text, passwordController.text,
