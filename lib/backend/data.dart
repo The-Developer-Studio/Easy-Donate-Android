@@ -27,6 +27,13 @@ getUserRequests() {
       .snapshots();
 }
 
+getUserDetails() {
+  return FirebaseFirestore.instance
+      .collection('userDetails')
+      .where("uid", isEqualTo: FirebaseAuth.instance.currentUser.uid)
+      .snapshots();
+}
+
 // ignore: missing_return
 String duration(Timestamp time) {
   var difference = Timestamp.now().toDate().difference(time.toDate());

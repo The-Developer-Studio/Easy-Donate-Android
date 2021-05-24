@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easydonatefinal/backend/data.dart';
+import 'package:easydonatefinal/backend/controllers.dart';
 import 'package:easydonatefinal/models/postModel.dart';
 import 'package:easydonatefinal/pages/Post/success.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
@@ -257,6 +257,13 @@ class _ReviewPageState extends State<ReviewPage> {
                       "postedTime": DateTime.now(),
                       "user": FirebaseAuth.instance.currentUser.uid,
                     });
+                    donorNameController.text = null;
+                    donorAddressController.text = null;
+                    cityController.text = null;
+                    countryController.text = null;
+                    nameController.text = null;
+                    descController.text = null;
+                    quantityController.text = null;
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => SuccessPage()));
                   },
