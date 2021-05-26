@@ -26,7 +26,7 @@ class _AccountPageState extends State<AccountPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               StreamBuilder(
-                  stream: getUserDetails(),
+                  stream: userDetails,
                   builder: (context, snapshot) {
                     return snapshot.hasData
                         ? Stack(
@@ -54,7 +54,7 @@ class _AccountPageState extends State<AccountPage> {
                                       height: 15,
                                     ),
                                     Text(
-                                      snapshot.data.docs[0]['name'],
+                                      snapshot.data[0].name,
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
@@ -77,7 +77,7 @@ class _AccountPageState extends State<AccountPage> {
                                             width: 8,
                                           ),
                                           Text(
-                                            snapshot.data.docs[0]['location'],
+                                            snapshot.data[0].location,
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 12),
@@ -93,13 +93,13 @@ class _AccountPageState extends State<AccountPage> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         StreamBuilder(
-                                            stream: getUserDonations(),
+                                            stream: userDonation,
                                             builder: (context, snapshot) {
                                               return snapshot.hasData
                                                   ? Column(
                                                       children: [
                                                         Text(
-                                                          snapshot.data.size
+                                                          snapshot.data.length
                                                               .toString(),
                                                           style: TextStyle(
                                                               color:
@@ -121,13 +121,13 @@ class _AccountPageState extends State<AccountPage> {
                                                   : Container();
                                             }),
                                         StreamBuilder(
-                                            stream: getUserRequests(),
+                                            stream: userRequest,
                                             builder: (context, snapshot) {
                                               return snapshot.hasData
                                                   ? Column(
                                                       children: [
                                                         Text(
-                                                          snapshot.data.size
+                                                          snapshot.data.length
                                                               .toString(),
                                                           style: TextStyle(
                                                               color:
@@ -149,13 +149,13 @@ class _AccountPageState extends State<AccountPage> {
                                                   : Container();
                                             }),
                                         StreamBuilder(
-                                            stream: getUserDonations(),
+                                            stream: userDonation,
                                             builder: (context, snapshot) {
                                               return snapshot.hasData
                                                   ? Column(
                                                       children: [
                                                         Text(
-                                                          snapshot.data.size
+                                                          snapshot.data.length
                                                               .toString(),
                                                           style: TextStyle(
                                                               color:
