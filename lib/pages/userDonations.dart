@@ -10,74 +10,6 @@ class UserDonations extends StatefulWidget {
 }
 
 class _UserDonationsState extends State<UserDonations> {
-  Future<void> _showMyDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text(
-            'Delete post',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: const <Widget>[
-                Text(
-                  'This action will delete the post permenantly, you cant restore the post after deletion.',
-                  style: TextStyle(fontSize: 14),
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text(
-                'Cancel',
-                style: TextStyle(
-                    color: Colors.black45, fontWeight: FontWeight.bold),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: const Text(
-                'Delete',
-                style:
-                    TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Future<void> _showEditDialog() async {
-    return showDialog<void>(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text(
-              'Edit Post',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: [
-                  Text('Text Box'),
-                ],
-              ),
-            ),
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,7 +64,7 @@ class _UserDonationsState extends State<UserDonations> {
                             )),
                             GestureDetector(
                               onTap: () {
-                                _showMyDialog();
+                                showMyDialog(context);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 20),
@@ -144,7 +76,7 @@ class _UserDonationsState extends State<UserDonations> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                _showEditDialog();
+                                showEditDialog(context);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 20),

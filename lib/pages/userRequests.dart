@@ -1,7 +1,5 @@
 import 'package:easydonatefinal/backend/data.dart';
-import 'package:easydonatefinal/pages/showdetails.dart';
 import 'package:easydonatefinal/widgets/itemTile.dart';
-import 'package:easydonatefinal/widgets/listCard.dart';
 import 'package:flutter/material.dart';
 
 class UserRequests extends StatefulWidget {
@@ -54,8 +52,38 @@ class _UserRequestsState extends State<UserRequests> {
                       shrinkWrap: true,
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
-                        return ItemTile(
-                          item: snapshot.data[index],
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                                child: ItemTile(
+                              item: snapshot.data[index],
+                            )),
+                            GestureDetector(
+                              onTap: () {
+                                showMyDialog(context);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 20),
+                                child: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                showEditDialog(context);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 20),
+                                child: Icon(
+                                  Icons.edit,
+                                  color: Colors.deepPurple,
+                                ),
+                              ),
+                            ),
+                          ],
                         );
                       })
                   : Center(
