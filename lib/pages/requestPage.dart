@@ -43,7 +43,9 @@ class _RequestsState extends State<Requests> {
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
-                CustomAppBar(),
+                CustomAppBar(
+                  isRequest: true,
+                ),
               ];
             },
             body: RequestsList()),

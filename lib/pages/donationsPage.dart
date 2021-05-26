@@ -18,7 +18,9 @@ class _DonationsPageState extends State<DonationsPage> {
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
-                CustomAppBar(),
+                CustomAppBar(
+                  isRequest: false,
+                ),
               ];
             },
             body: DonationsList()),
