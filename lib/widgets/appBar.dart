@@ -1,8 +1,13 @@
+import 'dart:ui';
+
+import 'package:easydonatefinal/backend/data.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
+  final bool isRequest;
   const CustomAppBar({
     Key key,
+    @required this.isRequest,
   }) : super(key: key);
 
   @override
@@ -19,42 +24,27 @@ class CustomAppBar extends StatelessWidget {
           centerTitle: true,
           title: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Container(
-              height: 45,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black38,
-                    blurRadius: 2,
-                    offset: const Offset(0, 1),
-                  ),
-                ],
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: Center(
-                child: TextField(
-                  style: TextStyle(fontSize: 10),
-                  decoration: InputDecoration(
-                      suffixIcon: Icon(
-                        Icons.search,
-                        color: Colors.black12,
-                        size: 20,
-                      ),
-                      filled: true,
-                      fillColor: Colors.white70,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                        borderSide:
-                            BorderSide(color: Colors.transparent, width: 2),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        borderSide:
-                            BorderSide(color: Colors.transparent, width: 2),
-                      ),
-                      hintText: 'Search anything',
-                      hintStyle: TextStyle(fontSize: 9)),
+            child: GestureDetector(
+              onTap: () {
+                showSearch(
+                    context: context,
+                    delegate: ItemSearch(isRequest: isRequest));
+              },
+              child: Container(
+                height: 45,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black38,
+                      blurRadius: 2,
+                      offset: const Offset(0, 1),
+                    ),
+                  ],
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Center(
+                  child: Text('Search Anything'),
                 ),
               ),
             ),

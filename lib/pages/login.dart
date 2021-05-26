@@ -19,12 +19,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
-    var emailController = new TextEditingController();
-    var passwordController = new TextEditingController();
-    var confirmPasswordController = new TextEditingController();
-    var nameController = new TextEditingController();
-    var addressController = new TextEditingController();
-    var mobileController = new TextEditingController();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(

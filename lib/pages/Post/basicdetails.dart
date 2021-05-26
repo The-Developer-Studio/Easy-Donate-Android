@@ -1,6 +1,6 @@
 import 'package:easydonatefinal/backend/controllers.dart';
 import 'package:easydonatefinal/models/postModel.dart';
-import 'package:easydonatefinal/pages/Post/category.dart';
+import 'package:easydonatefinal/lists/categoryList.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:easydonatefinal/widgets/field.dart';
 import 'package:flutter/material.dart';
