@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easydonatefinal/models/category.dart';
 import 'package:easydonatefinal/models/item.dart';
+import 'package:easydonatefinal/models/user.dart';
 import 'package:easydonatefinal/widgets/itemTile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,18 @@ List<Category> _categoriesFromSnapshot(QuerySnapshot snapshot) {
   }).toList();
 }
 
+List<UserDetails> _userFromSnapshot(QuerySnapshot snapshot) {
+  return snapshot.docs.map((user) {
+    return UserDetails(
+        user.get('address'),
+        user.get('email'),
+        user.get('location'),
+        user.get('mobile'),
+        user.get('name'),
+        user.get('uid'));
+  }).toList();
+}
+
 Stream<List<Item>> get requests {
   return FirebaseFirestore.instance
       .collection('Request')
@@ -48,29 +61,32 @@ Stream<List<Item>> get donations {
 Stream<List<Category>> get categories {
   return FirebaseFirestore.instance
       .collection('categories')
+      .where("uid", isEqualTo: FirebaseAuth.instance.currentUser.uid)
       .snapshots()
       .map(_categoriesFromSnapshot);
 }
 
-getUserDonations() {
+Stream<List<UserDetails>> get userDetails {
+  return FirebaseFirestore.instance
+      .collection('userDetails')
+      .snapshots()
+      .map(_userFromSnapshot);
+}
+
+Stream<List<Item>> get userDonation {
   return FirebaseFirestore.instance
       .collection('Donation')
       .where('user', isEqualTo: FirebaseAuth.instance.currentUser.uid)
-      .snapshots();
+      .snapshots()
+      .map(_itemListFromSnapshot);
 }
 
-getUserRequests() {
+Stream<List<Item>> get userRequest {
   return FirebaseFirestore.instance
       .collection('Request')
       .where('user', isEqualTo: FirebaseAuth.instance.currentUser.uid)
-      .snapshots();
-}
-
-getUserDetails() {
-  return FirebaseFirestore.instance
-      .collection('userDetails')
-      .where("uid", isEqualTo: FirebaseAuth.instance.currentUser.uid)
-      .snapshots();
+      .snapshots()
+      .map(_itemListFromSnapshot);
 }
 
 // ignore: missing_return

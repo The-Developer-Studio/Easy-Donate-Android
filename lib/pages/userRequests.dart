@@ -1,5 +1,6 @@
 import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/pages/showdetails.dart';
+import 'package:easydonatefinal/widgets/itemTile.dart';
 import 'package:easydonatefinal/widgets/listCard.dart';
 import 'package:flutter/material.dart';
 
@@ -46,35 +47,15 @@ class _UserRequestsState extends State<UserRequests> {
             height: 30,
           ),
           StreamBuilder(
-            stream: getUserRequests(),
+            stream: userRequest,
             builder: (context, snapshot) {
               return snapshot.hasData
                   ? ListView.builder(
                       shrinkWrap: true,
-                      itemCount: snapshot.data.size,
+                      itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ShowDetails(
-                                        category: snapshot.data.docs[index]
-                                            ['category'],
-                                        desc: snapshot.data.docs[index]['desc'],
-                                        location: snapshot.data.docs[index]
-                                            ['location'],
-                                        quantity: snapshot.data.docs[index]
-                                            ['quantity'],
-                                      )),
-                            );
-                          },
-                          child: ListCard(
-                            location: snapshot.data.docs[index]['location'],
-                            postedTime: duration(
-                                snapshot.data.docs[index]['postedTime']),
-                            title: snapshot.data.docs[index]['title'],
-                          ),
+                        return ItemTile(
+                          item: snapshot.data[index],
                         );
                       })
                   : Center(
