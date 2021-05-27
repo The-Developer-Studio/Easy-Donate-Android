@@ -31,7 +31,7 @@ class CustomAppBar extends StatelessWidget {
                     delegate: ItemSearch(isRequest: isRequest));
               },
               child: Container(
-                height: 45,
+                height: 35,
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -44,7 +44,10 @@ class CustomAppBar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Center(
-                  child: Text('Search Anything'),
+                  child: Text(
+                    'Search Anything',
+                    style: TextStyle(color: Colors.black87, fontSize: 8),
+                  ),
                 ),
               ),
             ),
