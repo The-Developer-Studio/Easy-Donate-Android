@@ -1,3 +1,4 @@
+import 'package:easydonatefinal/pages/paymentPage.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
@@ -54,17 +55,39 @@ class _DeveloperDonationState extends State<DeveloperDonation> {
               SizedBox(
                 height: 30,
               ),
-              GooglePayButton(
-                // height: 30,
-                width: 800,
-                paymentConfigurationAsset: 'gpay.json',
-                paymentItems: _paymentItems,
-                style: GooglePayButtonStyle.black,
-                type: GooglePayButtonType.pay,
-                margin: const EdgeInsets.only(top: 15.0),
-                onPaymentResult: onGooglePayResult,
-                loadingIndicator: const Center(
-                  child: CircularProgressIndicator(),
+              // GooglePayButton(
+              //   // height: 30,
+              //   width: 800,
+              //   paymentConfigurationAsset: 'gpay.json',
+              //   paymentItems: _paymentItems,
+              //   style: GooglePayButtonStyle.black,
+              //   type: GooglePayButtonType.pay,
+              //   margin: const EdgeInsets.only(top: 15.0),
+              //   onPaymentResult: onGooglePayResult,
+              //   loadingIndicator: const Center(
+              //     child: CircularProgressIndicator(),
+              //   ),
+              // ),
+              Center(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PaymentPage()),
+                    );
+                  },
+                  child: Container(
+                    color: Colors.deepOrangeAccent,
+                    height: 30,
+                    width: 200,
+                    child: Center(
+                      child: Text(
+                        "Donate now",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
                 ),
               ),
               SizedBox(

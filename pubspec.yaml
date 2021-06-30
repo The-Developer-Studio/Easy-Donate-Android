@@ -39,6 +39,7 @@ dependencies:
   flutter_sliding_up_panel: ^1.2.1
   provider:
   fluttertoast: ^8.0.7
+  razorpay_flutter: ^1.2.6
 
 dev_dependencies:
   flutter_test:
