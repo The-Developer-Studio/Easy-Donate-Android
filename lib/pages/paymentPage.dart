@@ -27,7 +27,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
   void openCheckout() {
     var options = {
-      "key": "rzp_test_mA207SOSIPg03y",
+      "key": "rzp_live_Kh1CbfgD7L9DN9",
       "amount": num.parse(textEditingController.text) * 100,
       "name": "The Developer Studio",
       "description": "Donation for the developers for Easy Donate",
