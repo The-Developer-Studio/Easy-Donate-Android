@@ -139,67 +139,9 @@ class _LoginState extends State<Login> {
                     ),
                     onPressed: () async {
                       if (widget.isSignup) {
-                        try {
-                          assert(emailController.text.trim() != '' &&
-                              emailController.text != null);
-                          assert(passwordController.text.trim() != '' &&
-                              passwordController.text != null);
-                          assert(confirmPasswordController.text.trim() != '' &&
-                              confirmPasswordController.text != null);
-                          assert(nameController.text.trim() != '' &&
-                              nameController.text != null);
-                          assert(addressController.text.trim() != '' &&
-                              addressController.text != null);
-                          assert(cityController.text.trim() != '' &&
-                              cityController.text != null);
-                          assert(countryController.text.trim() != '' &&
-                              countryController.text != null);
-                          assert(mobileController.text.trim() != '' &&
-                              mobileController.text != null);
-                          if (passwordController.text ==
-                              confirmPasswordController.text) {
-                            var uid = await authRegister(emailController.text,
-                                passwordController.text, context);
-                            FirebaseFirestore.instance
-                                .collection('userDetails')
-                                .add({
-                              "uid": uid,
-                              "email": emailController.text,
-                              "name": nameController.text,
-                              "address": addressController.text,
-                              "mobile": mobileController.text,
-                              "location":
-                                  '${cityController.text},${countryController.text}'
-                            });
-                            emailController.text = null;
-                            passwordController.text = null;
-                            confirmPasswordController.text = null;
-                            nameController.text = null;
-                            addressController.text = null;
-                            mobileController.text = null;
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (context) => Login(
-                                          isSignup: false,
-                                        )),
-                                (route) => false);
-                          } else {
-                            Fluttertoast.showToast(
-                                msg: 'Entered Passwords do not match');
-                          }
-                        } on AssertionError {
-                          Fluttertoast.showToast(
-                              msg: 'None of the Fields can be Empty');
-                        }
+                        authRegister(context);
                       } else {
-                        authLogin(emailController.text, passwordController.text,
-                            context);
-                        emailController.text = null;
-                        passwordController.text = null;
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (context) => BottomNavigation()),
-                            (route) => false);
+                        authLogin(context);
                       }
                     },
                   ),
