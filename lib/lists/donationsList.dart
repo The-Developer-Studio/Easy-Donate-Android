@@ -1,7 +1,5 @@
 import 'package:easydonatefinal/backend/data.dart';
-import 'package:easydonatefinal/pages/showdetails.dart';
 import 'package:easydonatefinal/widgets/itemTile.dart';
-import 'package:easydonatefinal/widgets/listCard.dart';
 import 'package:flutter/material.dart';
 
 class DonationsList extends StatefulWidget {

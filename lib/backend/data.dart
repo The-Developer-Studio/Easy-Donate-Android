@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easydonatefinal/backend/controllers.dart';
 import 'package:easydonatefinal/models/category.dart';
 import 'package:easydonatefinal/models/item.dart';
 import 'package:easydonatefinal/models/user.dart';
 import 'package:easydonatefinal/widgets/itemTile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 getCategories() {
   return FirebaseFirestore.instance.collection('categories').snapshots();
@@ -22,7 +24,8 @@ List<Item> _itemListFromSnapshot(QuerySnapshot snapshot) {
         request.get('quantity'),
         request.get('time'),
         request.get('title'),
-        request.get('user'));
+        request.get('user'),
+        request.id);
   }).toList();
 }
 
@@ -61,7 +64,6 @@ Stream<List<Item>> get donations {
 Stream<List<Category>> get categories {
   return FirebaseFirestore.instance
       .collection('categories')
-      .where("uid", isEqualTo: FirebaseAuth.instance.currentUser.uid)
       .snapshots()
       .map(_categoriesFromSnapshot);
 }
@@ -69,6 +71,7 @@ Stream<List<Category>> get categories {
 Stream<List<UserDetails>> get userDetails {
   return FirebaseFirestore.instance
       .collection('userDetails')
+      .where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid)
       .snapshots()
       .map(_userFromSnapshot);
 }
@@ -116,13 +119,13 @@ String duration(Timestamp time) {
       return '$daysDifference days ago';
     }
     if (daysDifference >= 7 && daysDifference <= 30) {
-      return '${daysDifference / 7} weeks ago';
+      return '${daysDifference ~/ 7} week(s) ago';
     }
     if (daysDifference > 30 && daysDifference < 365) {
-      return '${daysDifference / 30} months ago';
+      return '${daysDifference ~/ 30} month(s) ago';
     }
     if (daysDifference >= 365) {
-      return '${daysDifference / 365} years ago';
+      return '${daysDifference ~/ 365} year(s) ago';
     }
   }
 }
@@ -209,7 +212,7 @@ class ItemSearch extends SearchDelegate {
   }
 }
 
-showMyDialog(BuildContext context) async {
+showMyDialog(BuildContext context, String id, String collection) async {
   return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
@@ -246,6 +249,12 @@ showMyDialog(BuildContext context) async {
               style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
             ),
             onPressed: () {
+              FirebaseFirestore.instance
+                  .collection(collection)
+                  .doc(id)
+                  .delete();
+              clearControllers();
+              Fluttertoast.showToast(msg: 'Post Deleted');
               Navigator.of(context).pop();
             },
           ),
@@ -255,23 +264,115 @@ showMyDialog(BuildContext context) async {
   );
 }
 
-showEditDialog(BuildContext context) async {
+DateTime currentDate;
+
+showEditDialog(BuildContext context, Item item, String collection) async {
   return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text(
-            'Edit Post',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: [
-                Text('Text Box'),
+        nameController.text = item.title;
+        descController.text = item.desc;
+        quantityController.text = item.quantity;
+        currentDate = item.time.toDate();
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: const Text(
+                'Edit Post',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: [
+                    TextField(
+                      controller: nameController,
+                      decoration: InputDecoration(hintText: 'Name'),
+                    ),
+                    TextField(
+                      controller: descController,
+                      decoration: InputDecoration(hintText: 'Description'),
+                    ),
+                    TextField(
+                      controller: quantityController,
+                      decoration: InputDecoration(hintText: 'Quantity'),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "${currentDate.toLocal()}".split(' ')[0],
+                        ),
+                        IconButton(
+                            onPressed: () async {
+                              final DateTime pickedDate = await showDatePicker(
+                                  context: context,
+                                  initialDate: currentDate,
+                                  firstDate: DateTime(2015),
+                                  lastDate: DateTime(2050));
+                              if (pickedDate != null &&
+                                  pickedDate != currentDate) {
+                                setState(() {
+                                  currentDate = pickedDate;
+                                });
+                              }
+                            },
+                            icon: Icon(Icons.calendar_today))
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text(
+                    'Cancel',
+                    style: TextStyle(
+                        color: Colors.black45, fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: const Text(
+                    'Confirm',
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: () {
+                    FirebaseFirestore.instance
+                        .collection(collection)
+                        .doc(item.id)
+                        .update({
+                      'title': nameController.text,
+                      'desc': descController.text,
+                      'quantity': quantityController.text,
+                      'time': currentDate,
+                    });
+                    clearControllers();
+                    Fluttertoast.showToast(msg: 'Post Edited');
+                    Navigator.of(context).pop();
+                  },
+                ),
               ],
-            ),
-          ),
+            );
+          },
         );
       });
+}
+
+clearControllers() {
+  donorNameController.clear();
+  donorAddressController.clear();
+  cityController.clear();
+  countryController.clear();
+  descController.clear();
+  quantityController.clear();
+  emailController.clear();
+  passwordController.clear();
+  confirmPasswordController.clear();
+  addressController.clear();
+  mobileController.clear();
+  nameController.clear();
 }

@@ -13,20 +13,7 @@ class _PostNewState extends State<PostNew> {
   Color _containerColor1 = Colors.deepOrange;
   Color _containerColor2 = Colors.white;
   Color _containertext1 = Colors.white;
-  Color _containertext2 = Colors.black87;
-  Color _temp, _temp2;
-
-  void changeColor() {
-    setState(() {
-      _temp = _containerColor1;
-      _containerColor1 = _containerColor2;
-      _containerColor2 = _temp;
-
-      _temp2 = _containertext1;
-      _containertext1 = _containertext2;
-      _containertext2 = _temp2;
-    });
-  }
+  Color _containertext2 = Colors.deepOrange;
 
   @override
   void initState() {
@@ -63,22 +50,28 @@ class _PostNewState extends State<PostNew> {
                 padding: const EdgeInsets.only(right: 25.0),
                 child: GestureDetector(
                   onTap: () {
-                    changeColor();
-                    post.type = 'Donation';
+                    setState(() {
+                      post.type = 'Donation';
+                    });
                   },
                   child: Container(
                     width: 500,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(),
-                      color: _containerColor1,
+                      color: post.type == 'Donation'
+                          ? _containerColor1
+                          : _containerColor2,
                     ),
                     height: 50,
                     child: Center(
                         child: Text(
                       'I am ready to donate',
                       style: TextStyle(
-                          color: _containertext1, fontWeight: FontWeight.bold),
+                          color: post.type == 'Donation'
+                              ? _containertext1
+                              : _containertext2,
+                          fontWeight: FontWeight.bold),
                     )),
                   ),
                 ),
@@ -90,22 +83,28 @@ class _PostNewState extends State<PostNew> {
                 padding: const EdgeInsets.only(right: 25.0),
                 child: GestureDetector(
                   onTap: () {
-                    changeColor();
-                    post.type = 'Request';
+                    setState(() {
+                      post.type = 'Request';
+                    });
                   },
                   child: Container(
                     width: 500,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(),
-                      color: _containerColor2,
+                      color: post.type == 'Request'
+                          ? _containerColor1
+                          : _containerColor2,
                     ),
                     height: 50,
                     child: Center(
                         child: Text(
                       'I need something',
                       style: TextStyle(
-                          color: _containertext2, fontWeight: FontWeight.bold),
+                          color: post.type == 'Request'
+                              ? _containertext1
+                              : _containertext2,
+                          fontWeight: FontWeight.bold),
                     )),
                   ),
                 ),

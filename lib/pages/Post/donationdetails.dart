@@ -130,12 +130,6 @@ class _DonationDetailsState extends State<DonationDetails> {
               SizedBox(
                 height: 20,
               ),
-
-              //Maddy see here
-              // Expanded(
-              //   child: buildGridView(),
-              // ),
-
               SizedBox(
                 height: 60,
               ),

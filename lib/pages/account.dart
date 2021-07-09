@@ -48,7 +48,7 @@ class _AccountPageState extends State<AccountPage> {
                                     CircleAvatar(
                                       radius: 40,
                                       backgroundColor: Colors.white60,
-                                      child: const Text('AS'),
+                                      child: Text(snapshot.data[0].name[0]),
                                     ),
                                     SizedBox(
                                       height: 15,

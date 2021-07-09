@@ -61,7 +61,8 @@ class _UserRequestsState extends State<UserRequests> {
                             )),
                             GestureDetector(
                               onTap: () {
-                                showMyDialog(context);
+                                showMyDialog(context, snapshot.data[index].id,
+                                    'Request');
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 20),
@@ -73,7 +74,8 @@ class _UserRequestsState extends State<UserRequests> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                showEditDialog(context);
+                                showEditDialog(
+                                    context, snapshot.data[index], 'Request');
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 20),
