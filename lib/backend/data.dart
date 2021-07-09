@@ -118,14 +118,23 @@ String duration(Timestamp time) {
     if (daysDifference > 1 && daysDifference < 7) {
       return '$daysDifference days ago';
     }
-    if (daysDifference >= 7 && daysDifference <= 30) {
-      return '${daysDifference ~/ 7} week(s) ago';
+    if (daysDifference >= 7 && daysDifference <= 13) {
+      return '${daysDifference ~/ 7} week ago';
     }
-    if (daysDifference > 30 && daysDifference < 365) {
-      return '${daysDifference ~/ 30} month(s) ago';
+    if (daysDifference >= 14 && daysDifference <= 30) {
+      return '${daysDifference ~/ 7} weeks ago';
     }
-    if (daysDifference >= 365) {
-      return '${daysDifference ~/ 365} year(s) ago';
+    if (daysDifference > 30 && daysDifference < 60) {
+      return '${daysDifference ~/ 30} month ago';
+    }
+    if (daysDifference >= 60 && daysDifference < 365) {
+      return '${daysDifference ~/ 30} months ago';
+    }
+    if (daysDifference >= 365 && daysDifference < 730) {
+      return '${daysDifference ~/ 365} year ago';
+    }
+    if (daysDifference >= 730) {
+      return '${daysDifference ~/ 365} years ago';
     }
   }
 }
