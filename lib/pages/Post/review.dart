@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easydonatefinal/backend/controllers.dart';
+import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/models/postModel.dart';
 import 'package:easydonatefinal/pages/Post/success.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
@@ -257,13 +257,7 @@ class _ReviewPageState extends State<ReviewPage> {
                       "postedTime": DateTime.now(),
                       "user": FirebaseAuth.instance.currentUser.uid,
                     });
-                    donorNameController.text = null;
-                    donorAddressController.text = null;
-                    cityController.text = null;
-                    countryController.text = null;
-                    nameController.text = null;
-                    descController.text = null;
-                    quantityController.text = null;
+                    clearControllers();
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => SuccessPage()));
                   },
@@ -288,37 +282,10 @@ class _ReviewPageState extends State<ReviewPage> {
                 height: 70,
               ),
               Branding(),
-              // Text(post.type),
-              // Text(post.donorName),
-              // Text(post.donorAddress),
-              // Text(post.city),
-              // Text(post.country),
-              // Text(post.category),
-              // Text(post.productName),
-              // Text(post.description),
-              // Text(post.quantity.toString()),
-              // Text(post.expiry.toString())
             ],
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     FirebaseFirestore.instance.collection('${post.type}').add({
-      //       "donorName": post.donorName,
-      //       "donorAddress": post.donorAddress,
-      //       "location": "${post.city},${post.country}",
-      //       "category": post.category,
-      //       "title": post.productName,
-      //       "desc": post.description,
-      //       "quantity": post.quantity,
-      //       "time": post.expiry,
-      //       "postedTime": DateTime.now()
-      //     });
-      //     Navigator.of(context)
-      //         .push(MaterialPageRoute(builder: (context) => SuccessPage()));
-      //   },
-      // ),
     );
   }
 }

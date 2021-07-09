@@ -11,7 +11,7 @@ class Item {
   final Timestamp time;
   final String title;
   final String user;
-
+  final String id;
   Item(
       this.category,
       this.desc,
@@ -22,5 +22,6 @@ class Item {
       this.quantity,
       this.time,
       this.title,
-      this.user);
+      this.user,
+      this.id);
 }

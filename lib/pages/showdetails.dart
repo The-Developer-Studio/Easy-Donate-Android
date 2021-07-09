@@ -1,5 +1,4 @@
 import 'package:easydonatefinal/pages/Post/success.dart';
-import 'package:easydonatefinal/widgets/bottomNavigation.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:flutter/material.dart';
 
@@ -28,10 +27,7 @@ class _ShowDetailsState extends State<ShowDetails> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => BottomNavigation()),
-                (route) => false);
+            Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back),
           color: Colors.deepOrange,

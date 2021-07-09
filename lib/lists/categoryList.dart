@@ -1,7 +1,4 @@
 import 'package:easydonatefinal/backend/data.dart';
-import 'package:easydonatefinal/models/postModel.dart';
-
-import '../pages/Post/donationdetails.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:easydonatefinal/widgets/categorytile.dart';
 import 'package:flutter/material.dart';
