@@ -1,7 +1,6 @@
 import 'package:easydonatefinal/pages/paymentPage.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:flutter/material.dart';
-import 'package:pay/pay.dart';
 
 class DeveloperDonation extends StatefulWidget {
   @override
@@ -9,13 +8,6 @@ class DeveloperDonation extends StatefulWidget {
 }
 
 class _DeveloperDonationState extends State<DeveloperDonation> {
-  final _paymentItems = [
-    PaymentItem(
-      label: 'Total',
-      amount: '99.99',
-      status: PaymentItemStatus.final_price,
-    )
-  ];
   void onGooglePayResult(paymentResult) {
     debugPrint(paymentResult.toString());
   }
