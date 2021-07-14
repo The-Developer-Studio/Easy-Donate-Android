@@ -32,7 +32,6 @@ class _DonationDetailsState extends State<DonationDetails> {
 
   Future<void> loadAssets() async {
     List<Asset> resultList = <Asset>[];
-    String error = 'No Error Detected';
 
     try {
       resultList = await MultiImagePicker.pickImages(
@@ -49,7 +48,7 @@ class _DonationDetailsState extends State<DonationDetails> {
         ),
       );
     } on Exception catch (e) {
-      error = e.toString();
+      print(e.toString());
     }
 
     // If the widget was removed from the tree while the asynchronous platform

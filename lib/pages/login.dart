@@ -1,11 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easydonatefinal/backend/authentication.dart';
 import 'package:easydonatefinal/backend/controllers.dart';
-import 'package:easydonatefinal/widgets/bottomNavigation.dart';
 import 'package:easydonatefinal/widgets/field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 // Login Screen and SignUp Screen
 class Login extends StatefulWidget {

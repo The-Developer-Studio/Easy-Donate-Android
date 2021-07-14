@@ -1,5 +1,4 @@
 import 'package:easydonatefinal/backend/data.dart';
-import 'package:easydonatefinal/pages/developerDonation.dart';
 import 'package:easydonatefinal/pages/userDonations.dart';
 import 'package:easydonatefinal/pages/userRequests.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -235,33 +234,33 @@ class _AccountPageState extends State<AccountPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DeveloperDonation()),
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Donate for Developers',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.blue),
-                          ),
-                          Icon(
-                            Icons.arrow_forward,
-                            color: Colors.blue,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //           builder: (context) => DeveloperDonation()),
+                    //     );
+                    //   },
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       Text(
+                    //         'Donate for Developers',
+                    //         style: TextStyle(
+                    //             fontWeight: FontWeight.bold,
+                    //             color: Colors.blue),
+                    //       ),
+                    //       Icon(
+                    //         Icons.arrow_forward,
+                    //         color: Colors.blue,
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
