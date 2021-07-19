@@ -73,9 +73,7 @@ class _SuccessPageState extends State<SuccessPage> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 150,
-              ),
+              Expanded(child: Container()),
               Center(child: Branding()),
             ],
           ),

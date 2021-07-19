@@ -18,6 +18,7 @@ class ItemTile extends StatelessWidget {
           context,
           MaterialPageRoute(
               builder: (context) => ShowDetails(
+                    user: item.user,
                     category: item.category,
                     desc: item.desc,
                     location: item.location,

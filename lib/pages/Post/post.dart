@@ -58,7 +58,11 @@ class _PostNewState extends State<PostNew> {
                     width: 500,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(),
+                      border: Border.all(
+                        color: post.type == 'Donation'
+                            ? _containerColor1
+                            : _containerColor2,
+                      ),
                       color: post.type == 'Donation'
                           ? _containerColor1
                           : _containerColor2,
@@ -91,7 +95,11 @@ class _PostNewState extends State<PostNew> {
                     width: 500,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(),
+                      border: Border.all(
+                        color: post.type == 'Request'
+                            ? _containerColor1
+                            : _containerColor2,
+                      ),
                       color: post.type == 'Request'
                           ? _containerColor1
                           : _containerColor2,
