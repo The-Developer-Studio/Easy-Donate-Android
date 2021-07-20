@@ -157,7 +157,7 @@ packages:
       name: flutter_sliding_up_panel
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.1"
+    version: "2.0.1"
   flutter_svg:
     dependency: transitive
     description:
