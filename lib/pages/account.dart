@@ -1,8 +1,12 @@
 import 'package:easydonatefinal/backend/data.dart';
+import 'package:easydonatefinal/models/user.dart';
+import 'package:easydonatefinal/pages/faq.dart';
 import 'package:easydonatefinal/pages/userDonations.dart';
 import 'package:easydonatefinal/pages/userRequests.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'login.dart';
 
 class AccountPage extends StatefulWidget {
@@ -26,165 +30,161 @@ class _AccountPageState extends State<AccountPage> {
             children: [
               StreamBuilder(
                   stream: userDetails,
-                  builder: (context, snapshot) {
-                    return snapshot.hasData
-                        ? Stack(
-                            children: [
-                              Container(
-                                height: 300,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(60),
-                                      bottomLeft: Radius.circular(60)),
-                                  color: Colors.deepOrange,
+                  builder:
+                      (context, AsyncSnapshot<List<UserDetails>> snapshot) {
+                    if (snapshot.hasData) {
+                      var index = snapshot.data.indexWhere((element) =>
+                          element.uid == FirebaseAuth.instance.currentUser.uid);
+                      return Stack(
+                        children: [
+                          Container(
+                            height: 300,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(60),
+                                  bottomLeft: Radius.circular(60)),
+                              color: Colors.deepOrange,
+                            ),
+                          ),
+                          Center(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                // SizedBox(height: 80),
+                                CircleAvatar(
+                                  radius: 40,
+                                  backgroundColor: Colors.white60,
+                                  child: Text(snapshot.data[index].name[0]),
                                 ),
-                              ),
-                              Center(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    // SizedBox(height: 80),
-                                    CircleAvatar(
-                                      radius: 40,
-                                      backgroundColor: Colors.white60,
-                                      child: Text(snapshot.data[0].name[0]),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Text(
-                                      snapshot.data[0].name,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                    ),
-                                    SizedBox(
-                                      height: 8,
-                                    ),
-                                    Center(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.location_on_outlined,
-                                            color: Colors.white,
-                                            size: 14,
-                                          ),
-                                          SizedBox(
-                                            width: 8,
-                                          ),
-                                          Text(
-                                            snapshot.data[0].location,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 12),
-                                          ),
-                                        ],
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Text(
+                                  snapshot.data[index].name,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.location_on_outlined,
+                                        color: Colors.white,
+                                        size: 14,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: 50,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        StreamBuilder(
-                                            stream: userDonation,
-                                            builder: (context, snapshot) {
-                                              return snapshot.hasData
-                                                  ? Column(
-                                                      children: [
-                                                        Text(
-                                                          snapshot.data.length
-                                                              .toString(),
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 30,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        Text(
-                                                          'Donations',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 10,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    )
-                                                  : Container();
-                                            }),
-                                        StreamBuilder(
-                                            stream: userRequest,
-                                            builder: (context, snapshot) {
-                                              return snapshot.hasData
-                                                  ? Column(
-                                                      children: [
-                                                        Text(
-                                                          snapshot.data.length
-                                                              .toString(),
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 30,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        Text(
-                                                          'Requests',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 10,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    )
-                                                  : Container();
-                                            }),
-                                        StreamBuilder(
-                                            stream: userDonation,
-                                            builder: (context, snapshot) {
-                                              return snapshot.hasData
-                                                  ? Column(
-                                                      children: [
-                                                        Text(
-                                                          snapshot.data.length
-                                                              .toString(),
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 30,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        ),
-                                                        Text(
-                                                          'Donations',
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 10,
-                                                          ),
-                                                        )
-                                                      ],
-                                                    )
-                                                  : Container();
-                                            }),
-                                      ],
-                                    )
-                                  ],
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        snapshot.data[index].location,
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              )
-                            ],
+                                SizedBox(
+                                  height: 50,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    StreamBuilder(
+                                        stream: userDonation,
+                                        builder: (context, snapshot) {
+                                          return snapshot.hasData
+                                              ? Column(
+                                                  children: [
+                                                    Text(
+                                                      snapshot.data.length
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 30,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text(
+                                                      'Donations',
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 10,
+                                                      ),
+                                                    )
+                                                  ],
+                                                )
+                                              : Container();
+                                        }),
+                                    StreamBuilder(
+                                        stream: userRequest,
+                                        builder: (context, snapshot) {
+                                          return snapshot.hasData
+                                              ? Column(
+                                                  children: [
+                                                    Text(
+                                                      snapshot.data.length
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 30,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text(
+                                                      'Requests',
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 10,
+                                                      ),
+                                                    )
+                                                  ],
+                                                )
+                                              : Container();
+                                        }),
+                                    StreamBuilder(
+                                        stream: userDonation,
+                                        builder: (context, snapshot) {
+                                          return snapshot.hasData
+                                              ? Column(
+                                                  children: [
+                                                    Text(
+                                                      "${snapshot.data.length ~/ 5}",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 30,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                    Text(
+                                                      'Levels',
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 10,
+                                                      ),
+                                                    )
+                                                  ],
+                                                )
+                                              : Container();
+                                        }),
+                                  ],
+                                )
+                              ],
+                            ),
                           )
-                        : Center(
-                            child: CircularProgressIndicator(),
-                          );
+                        ],
+                      );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
                   }),
               // SizedBox(
               //   height: 50,
@@ -261,41 +261,61 @@ class _AccountPageState extends State<AccountPage> {
                     // SizedBox(
                     //   height: 20,
                     // ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Refer a friend',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Icon(Icons.arrow_forward),
-                      ],
+                    GestureDetector(
+                      onTap: () {
+                        Share.share(
+                            'Hey there!!\nCheck this Amazing App from The Developer Studio!!:\n https://bit.ly/tdseasydonate');
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Refer a friend',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Icon(Icons.arrow_forward),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'FAQ',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Icon(Icons.arrow_forward),
-                      ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => FaqPage()));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'FAQ',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Icon(Icons.arrow_forward),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Rate the app',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Icon(Icons.arrow_forward),
-                      ],
+                    GestureDetector(
+                      onTap: () async {
+                        var _url = 'https://www.bit.ly/tdseasydonate';
+                        await canLaunch(_url)
+                            ? await launch(_url)
+                            : throw 'Could not launch $_url';
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Rate the app',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Icon(Icons.arrow_forward),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: 20,
@@ -346,12 +366,13 @@ class _AccountPageState extends State<AccountPage> {
                           '  by ',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        Text(
-                          'theDeveloperStudio ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.deepOrange),
-                        ),
+                        Expanded(child: Image.asset('images/companyName.png'))
+                        // Text(
+                        //   'theDeveloperStudio ',
+                        //   style: TextStyle(
+                        //       fontWeight: FontWeight.bold,
+                        //       color: Colors.deepOrange),
+                        // ),
                       ],
                     )
                   ],

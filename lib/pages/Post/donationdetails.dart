@@ -108,27 +108,27 @@ class _DonationDetailsState extends State<DonationDetails> {
               SizedBox(
                 height: 40,
               ),
-              post.type == 'Donation'
-                  ? GestureDetector(
-                      onTap: loadAssets,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Attach Images',
-                              style: TextStyle(
-                                  color: Colors.deepOrange,
-                                  fontWeight: FontWeight.bold)),
-                          Icon(
-                            Icons.attach_file_rounded,
-                            color: Colors.deepOrange,
-                          )
-                        ],
-                      ),
-                    )
-                  : Container(),
-              SizedBox(
-                height: 20,
-              ),
+              // post.type == 'Donation'
+              //     ? GestureDetector(
+              //         onTap: loadAssets,
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             Text('Attach Images',
+              //                 style: TextStyle(
+              //                     color: Colors.deepOrange,
+              //                     fontWeight: FontWeight.bold)),
+              //             Icon(
+              //               Icons.attach_file_rounded,
+              //               color: Colors.deepOrange,
+              //             )
+              //           ],
+              //         ),
+              //       )
+              //     : Container(),
+              // SizedBox(
+              //   height: 20,
+              // ),
               SizedBox(
                 height: 60,
               ),

@@ -222,26 +222,26 @@ class _ReviewPageState extends State<ReviewPage> {
               SizedBox(
                 height: 50,
               ),
-              Text(
-                'Photos',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'No photos available',
-                style: TextStyle(
-                    color: Colors.black,
-                    // fontWeight: FontWeight.bold,
-                    fontSize: 10),
-              ),
-              SizedBox(
-                height: 50,
-              ),
+              // Text(
+              //   'Photos',
+              //   style: TextStyle(
+              //       color: Colors.black,
+              //       fontWeight: FontWeight.bold,
+              //       fontSize: 14),
+              // ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              // Text(
+              //   'No photos available',
+              //   style: TextStyle(
+              //       color: Colors.black,
+              //       // fontWeight: FontWeight.bold,
+              //       fontSize: 10),
+              // ),
+              // SizedBox(
+              //   height: 50,
+              // ),
               Center(
                 child: GestureDetector(
                   onTap: () {
