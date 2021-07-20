@@ -6,7 +6,8 @@ import 'package:easydonatefinal/widgets/field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker_modern/image_picker_modern.dart';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class DonationDetails extends StatefulWidget {
   @override
@@ -61,14 +62,17 @@ class _DonationDetailsState extends State<DonationDetails> {
   //   });
   // }
 
-  var _image;
+  File imageFile;
+  final picker = ImagePicker();
 
-  Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+  _getImage(ImageSource imageSource) async {
+    final pickedFile = await picker.getImage(source: imageSource);
 
-    setState(() {
-      _image = image;
-    });
+    setState(
+      () {
+        imageFile = File(pickedFile.path);
+      },
+    );
   }
 
   @override
@@ -120,7 +124,7 @@ class _DonationDetailsState extends State<DonationDetails> {
               ),
               GestureDetector(
                   onTap: () {
-                    getImage();
+                    _getImage(ImageSource.gallery);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -131,19 +135,28 @@ class _DonationDetailsState extends State<DonationDetails> {
                             color: Colors.deepOrange,
                             fontWeight: FontWeight.bold),
                       ),
-                      Icon(
-                        Icons.attach_file,
-                        color: Colors.deepOrange,
-                      ),
+                      Icon(Icons.attach_file),
                     ],
                   )),
               SizedBox(
                 height: 20,
               ),
               Center(
-                child: _image == null
-                    ? Text('No image selected.')
-                    : Image.file(_image),
+                child: imageFile != null
+                    ? Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Container(
+                          width: 300,
+                          height: 300,
+                          child: Image.file(
+                            imageFile,
+                          ),
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: Text('No image selected'),
+                      ),
               ),
               SizedBox(
                 height: 60,
