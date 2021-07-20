@@ -23,21 +23,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  numberpicker: ^2.0.1
+  cupertino_icons: ^1.0.3
+  numberpicker: ^2.1.1
   image_picker: ^0.8.2
   splashscreen:
-  firebase_core:
-  firebase_auth:
-  cloud_firestore:
-  share:
-  url_launcher:
+  firebase_core: ^1.4.0
+  firebase_auth: ^3.0.1
+  cloud_firestore: ^2.4.0
+  share: ^2.0.4
+  url_launcher: ^6.0.9
   multi_image_picker: ^4.8.01
-  pay: ^1.0.1
-  flutter_sliding_up_panel: ^1.2.1
-  provider:
+  pay: ^1.0.5
+  flutter_sliding_up_panel: ^2.0.1
+  provider: ^5.0.0
   fluttertoast: ^8.0.7
-  razorpay_flutter: ^1.2.6
+  razorpay_flutter: ^1.2.7
   image_picker_modern: ^0.4.12+3
 
 dev_dependencies:
