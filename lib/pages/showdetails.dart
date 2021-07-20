@@ -227,7 +227,7 @@ class _ShowDetailsState extends State<ShowDetails> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      'Interested to Donate?',
+                                      'Contact ' + user.name,
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold),
