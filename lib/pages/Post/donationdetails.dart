@@ -6,7 +6,7 @@ import 'package:easydonatefinal/widgets/field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
+import 'package:image_picker_modern/image_picker_modern.dart';
 
 class DonationDetails extends StatefulWidget {
   @override
@@ -14,50 +14,60 @@ class DonationDetails extends StatefulWidget {
 }
 
 class _DonationDetailsState extends State<DonationDetails> {
-  List<Asset> images = <Asset>[];
+  // List<Asset> images = <Asset>[];
 
-  Widget buildGridView() {
-    return GridView.count(
-      crossAxisCount: 3,
-      children: List.generate(images.length, (index) {
-        Asset asset = images[index];
-        return AssetThumb(
-          asset: asset,
-          width: 300,
-          height: 300,
-        );
-      }),
-    );
-  }
+  // Widget buildGridView() {
+  //   return GridView.count(
+  //     crossAxisCount: 3,
+  //     children: List.generate(images.length, (index) {
+  //       Asset asset = images[index];
+  //       return AssetThumb(
+  //         asset: asset,
+  //         width: 300,
+  //         height: 300,
+  //       );
+  //     }),
+  //   );
+  // }
 
-  Future<void> loadAssets() async {
-    List<Asset> resultList = <Asset>[];
+  // Future<void> loadAssets() async {
+  //   List<Asset> resultList = <Asset>[];
+  //
+  //   try {
+  //     resultList = await MultiImagePicker.pickImages(
+  //       maxImages: 300,
+  //       enableCamera: true,
+  //       selectedAssets: images,
+  //       cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
+  //       materialOptions: MaterialOptions(
+  //         actionBarColor: "#FFFF6E40",
+  //         actionBarTitle: "Easy Donate",
+  //         allViewTitle: "All Photos",
+  //         useDetailsView: false,
+  //         selectCircleStrokeColor: "#000000",
+  //       ),
+  //     );
+  //   } on Exception catch (e) {
+  //     print(e.toString());
+  //   }
 
-    try {
-      resultList = await MultiImagePicker.pickImages(
-        maxImages: 300,
-        enableCamera: true,
-        selectedAssets: images,
-        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
-        materialOptions: MaterialOptions(
-          actionBarColor: "#FFFF6E40",
-          actionBarTitle: "Easy Donate",
-          allViewTitle: "All Photos",
-          useDetailsView: false,
-          selectCircleStrokeColor: "#000000",
-        ),
-      );
-    } on Exception catch (e) {
-      print(e.toString());
-    }
+  // If the widget was removed from the tree while the asynchronous platform
+  // message was in flight, we want to discard the reply rather than calling
+  // setState to update our non-existent appearance.
+  //   if (!mounted) return;
+  //
+  //   setState(() {
+  //     images = resultList;
+  //   });
+  // }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
+  var _image;
+
+  Future getImage() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
     setState(() {
-      images = resultList;
+      _image = image;
     });
   }
 
@@ -108,27 +118,33 @@ class _DonationDetailsState extends State<DonationDetails> {
               SizedBox(
                 height: 40,
               ),
-              // post.type == 'Donation'
-              //     ? GestureDetector(
-              //         onTap: loadAssets,
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //           children: [
-              //             Text('Attach Images',
-              //                 style: TextStyle(
-              //                     color: Colors.deepOrange,
-              //                     fontWeight: FontWeight.bold)),
-              //             Icon(
-              //               Icons.attach_file_rounded,
-              //               color: Colors.deepOrange,
-              //             )
-              //           ],
-              //         ),
-              //       )
-              //     : Container(),
-              // SizedBox(
-              //   height: 20,
-              // ),
+              GestureDetector(
+                  onTap: () {
+                    getImage();
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Attach Images",
+                        style: TextStyle(
+                            color: Colors.deepOrange,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Icon(
+                        Icons.attach_file,
+                        color: Colors.deepOrange,
+                      ),
+                    ],
+                  )),
+              SizedBox(
+                height: 20,
+              ),
+              Center(
+                child: _image == null
+                    ? Text('No image selected.')
+                    : Image.file(_image),
+              ),
               SizedBox(
                 height: 60,
               ),
