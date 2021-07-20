@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easydonatefinal/backend/controllers.dart';
 import 'package:easydonatefinal/models/category.dart';
+import 'package:easydonatefinal/models/faq.dart';
 import 'package:easydonatefinal/models/item.dart';
 import 'package:easydonatefinal/models/user.dart';
 import 'package:easydonatefinal/widgets/itemTile.dart';
@@ -26,6 +27,12 @@ List<Item> _itemListFromSnapshot(QuerySnapshot snapshot) {
         request.get('title'),
         request.get('user'),
         request.id);
+  }).toList();
+}
+
+List<Faq> _faqFromSnapshot(QuerySnapshot snapshot) {
+  return snapshot.docs.map((faq) {
+    return Faq(faq.get('question'), faq.get('answer'));
   }).toList();
 }
 
@@ -71,9 +78,15 @@ Stream<List<Category>> get categories {
 Stream<List<UserDetails>> get userDetails {
   return FirebaseFirestore.instance
       .collection('userDetails')
-      .where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid)
       .snapshots()
       .map(_userFromSnapshot);
+}
+
+Stream<List<Faq>> get faqList {
+  return FirebaseFirestore.instance
+      .collection('FAQs')
+      .snapshots()
+      .map(_faqFromSnapshot);
 }
 
 Stream<List<Item>> get userDonation {
