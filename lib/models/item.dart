@@ -12,6 +12,7 @@ class Item {
   final String title;
   final String user;
   final String id;
+  final String url;
   Item(
       this.category,
       this.desc,
@@ -23,5 +24,6 @@ class Item {
       this.time,
       this.title,
       this.user,
-      this.id);
+      this.id,
+      this.url);
 }

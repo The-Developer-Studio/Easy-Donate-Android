@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 
 class PostModel extends ChangeNotifier {
@@ -11,6 +13,7 @@ class PostModel extends ChangeNotifier {
   String description;
   String quantity;
   DateTime expiry;
+  File image;
   PostModel() {
     type = '';
     donorName = '';
@@ -22,6 +25,7 @@ class PostModel extends ChangeNotifier {
     description = '';
     quantity = '';
     expiry = DateTime.now();
+    image = File('');
   }
 }
 

@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/models/postModel.dart';
 import 'package:easydonatefinal/pages/Post/success.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class ReviewPage extends StatefulWidget {
@@ -61,7 +64,9 @@ class _ReviewPageState extends State<ReviewPage> {
                         height: 5,
                       ),
                       Text(
-                        "${post.expiry.toLocal()}".split(' ')[0],
+                        post.expiry != null
+                            ? "${post.expiry.toLocal()}".split(' ')[0]
+                            : "No Restriction",
                         style: TextStyle(color: Colors.black54, fontSize: 12),
                       ),
                       SizedBox(
@@ -222,29 +227,54 @@ class _ReviewPageState extends State<ReviewPage> {
               SizedBox(
                 height: 50,
               ),
-              // Text(
-              //   'Photos',
-              //   style: TextStyle(
-              //       color: Colors.black,
-              //       fontWeight: FontWeight.bold,
-              //       fontSize: 14),
-              // ),
-              // SizedBox(
-              //   height: 10,
-              // ),
-              // Text(
-              //   'No photos available',
-              //   style: TextStyle(
-              //       color: Colors.black,
-              //       // fontWeight: FontWeight.bold,
-              //       fontSize: 10),
-              // ),
-              // SizedBox(
-              //   height: 50,
-              // ),
+              post.type == 'Donation'
+                  ? Text(
+                      'Photos',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                    )
+                  : Container(),
+              post.type == 'Donation'
+                  ? SizedBox(
+                      height: 10,
+                    )
+                  : Container(),
+              post.type == 'Donation'
+                  ? Center(
+                      child: post.image != null
+                          ? Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Container(
+                                width: 300,
+                                height: 300,
+                                child: Image.file(
+                                  post.image,
+                                ),
+                              ),
+                            )
+                          : Padding(
+                              padding: const EdgeInsets.all(18.0),
+                              child: Text('No image selected'),
+                            ),
+                    )
+                  : Container(),
+              SizedBox(
+                height: 50,
+              ),
               Center(
                 child: GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                    TaskSnapshot uploadTask;
+                    var url;
+                    if (post.image != null) {
+                      uploadTask = await FirebaseStorage.instance
+                          .ref('images/')
+                          .putFile(post.image);
+                      url = await uploadTask.ref.getDownloadURL();
+                    }
+
                     FirebaseFirestore.instance.collection('${post.type}').add({
                       "donorName": post.donorName,
                       "donorAddress": post.donorAddress,
@@ -255,6 +285,7 @@ class _ReviewPageState extends State<ReviewPage> {
                       "quantity": post.quantity,
                       "time": post.expiry,
                       "postedTime": DateTime.now(),
+                      "image": post.image != File('') ? url : '',
                       "user": FirebaseAuth.instance.currentUser.uid,
                     });
                     clearControllers();

@@ -19,9 +19,17 @@ class Field extends StatefulWidget {
 }
 
 class _FieldState extends State<Field> {
+  bool visible;
+  @override
+  void initState() {
+    visible = widget.ispass;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           padding: EdgeInsets.fromLTRB(10, 2, 10, 2),
@@ -29,16 +37,42 @@ class _FieldState extends State<Field> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               border: Border.all(color: Colors.black12)),
-          child: TextField(
-            keyboardType:
-                keyboardType(address: widget.isAddress, phone: widget.isNumber),
-            obscureText: widget.ispass,
-            controller: widget.controller,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              labelText: widget.label,
-              labelStyle: TextStyle(fontSize: 14),
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Enter Some Text';
+                    }
+                    return null;
+                  },
+                  keyboardType: keyboardType(
+                      address: widget.isAddress, phone: widget.isNumber),
+                  obscureText: visible,
+                  controller: widget.controller,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    labelText: widget.label,
+                    labelStyle: TextStyle(fontSize: 14),
+                  ),
+                ),
+              ),
+              widget.ispass
+                  ? IconButton(
+                      icon: Icon(
+                        Icons.remove_red_eye,
+                        color: !visible ? Colors.black : Colors.grey,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          visible = !visible;
+                        });
+                      },
+                    )
+                  : Container(),
+            ],
           ),
         ),
         SizedBox(
@@ -71,7 +105,13 @@ class CustomField extends StatefulWidget {
 class _CustomFieldState extends State<CustomField> {
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please Enter Some Text';
+        }
+        return null;
+      },
       controller: widget.controller,
       style: TextStyle(fontSize: 13),
       decoration: InputDecoration(hintText: widget.labeltext),

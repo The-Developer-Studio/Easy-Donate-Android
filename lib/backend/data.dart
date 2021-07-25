@@ -26,7 +26,8 @@ List<Item> _itemListFromSnapshot(QuerySnapshot snapshot) {
         request.get('time'),
         request.get('title'),
         request.get('user'),
-        request.id);
+        request.id,
+        request.get('image'));
   }).toList();
 }
 
@@ -57,6 +58,7 @@ List<UserDetails> _userFromSnapshot(QuerySnapshot snapshot) {
 Stream<List<Item>> get requests {
   return FirebaseFirestore.instance
       .collection('Request')
+      .orderBy('postedTime', descending: true)
       .snapshots()
       .map(_itemListFromSnapshot);
 }
@@ -64,6 +66,7 @@ Stream<List<Item>> get requests {
 Stream<List<Item>> get donations {
   return FirebaseFirestore.instance
       .collection('Donation')
+      .orderBy('postedTime', descending: true)
       .snapshots()
       .map(_itemListFromSnapshot);
 }
@@ -200,6 +203,7 @@ class ItemSearch extends SearchDelegate {
                   shrinkWrap: true,
                   children: result1
                       .map<ItemTile>((request) => ItemTile(
+                            isDonation: !isRequest,
                             item: request,
                           ))
                       .toList(),
@@ -209,6 +213,7 @@ class ItemSearch extends SearchDelegate {
                   shrinkWrap: true,
                   children: result2
                       .map<ItemTile>((request) => ItemTile(
+                            isDonation: !isRequest,
                             item: request,
                           ))
                       .toList(),
@@ -218,6 +223,7 @@ class ItemSearch extends SearchDelegate {
                   shrinkWrap: true,
                   children: result3
                       .map<ItemTile>((request) => ItemTile(
+                            isDonation: isRequest,
                             item: request,
                           ))
                       .toList(),

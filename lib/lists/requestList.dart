@@ -17,7 +17,10 @@ class _RequestsListState extends State<RequestsList> {
               ? ListView.builder(
                   itemCount: snapshot.data.length,
                   itemBuilder: (context, index) {
-                    return ItemTile(item: snapshot.data[index]);
+                    return ItemTile(
+                      item: snapshot.data[index],
+                      isDonation: false,
+                    );
                   })
               : Center(
                   child: CircularProgressIndicator(),

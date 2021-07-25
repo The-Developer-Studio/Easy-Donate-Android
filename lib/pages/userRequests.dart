@@ -12,14 +12,14 @@ class _UserRequestsState extends State<UserRequests> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.deepOrange,
         elevation: 0,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
             child: Text(
               'Request history',
               style: TextStyle(
@@ -57,6 +57,7 @@ class _UserRequestsState extends State<UserRequests> {
                           children: [
                             Expanded(
                                 child: ItemTile(
+                              isDonation: false,
                               item: snapshot.data[index],
                             )),
                             GestureDetector(

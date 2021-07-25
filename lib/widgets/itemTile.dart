@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'listCard.dart';
 
 class ItemTile extends StatelessWidget {
+  final bool isDonation;
   final Item item;
 
-  const ItemTile({Key key, this.item}) : super(key: key);
+  const ItemTile({Key key, @required this.item, @required this.isDonation})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +20,8 @@ class ItemTile extends StatelessWidget {
           context,
           MaterialPageRoute(
               builder: (context) => ShowDetails(
-                    user: item.user,
-                    category: item.category,
-                    desc: item.desc,
-                    location: item.location,
-                    quantity: item.quantity,
+                    isDonation: isDonation,
+                    item: item,
                   )),
         );
       },

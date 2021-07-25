@@ -38,7 +38,8 @@ dependencies:
   provider:
   fluttertoast: ^8.0.7
   razorpay_flutter: ^1.2.6
-  image_picker_modern: ^0.4.12+3
+  firebase_storage: ^10.0.1
+  cached_network_image: ^3.1.0
 
 dev_dependencies:
   flutter_test:
