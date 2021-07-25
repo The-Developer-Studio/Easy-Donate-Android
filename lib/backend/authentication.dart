@@ -13,18 +13,6 @@ Stream authcheck() {
 
 authRegister(BuildContext context) async {
   try {
-    assert(emailController.text.trim() != '' && emailController.text != null);
-    assert(passwordController.text.trim() != '' &&
-        passwordController.text != null);
-    assert(confirmPasswordController.text.trim() != '' &&
-        confirmPasswordController.text != null);
-    assert(nameController.text.trim() != '' && nameController.text != null);
-    assert(
-        addressController.text.trim() != '' && addressController.text != null);
-    assert(cityController.text.trim() != '' && cityController.text != null);
-    assert(
-        countryController.text.trim() != '' && countryController.text != null);
-    assert(mobileController.text.trim() != '' && mobileController.text != null);
     if (passwordController.text == confirmPasswordController.text) {
       var result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);

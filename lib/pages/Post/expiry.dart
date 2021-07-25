@@ -13,22 +13,9 @@ class _ExpiryPageState extends State<ExpiryPage> {
   Color _containerColor1 = Colors.deepOrange;
   Color _containerColor2 = Colors.white;
   Color _containertext1 = Colors.white;
-  Color _containertext2 = Colors.black87;
-  Color _temp, _temp2;
-
+  Color _containertext2 = Colors.deepOrange;
+  bool isExpirable = true;
   DateTime currentDate = DateTime.now();
-
-  void changeColor() {
-    setState(() {
-      _temp = _containerColor1;
-      _containerColor1 = _containerColor2;
-      _containerColor2 = _temp;
-
-      _temp2 = _containertext1;
-      _containertext1 = _containertext2;
-      _containertext2 = _temp2;
-    });
-  }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime pickedDate = await showDatePicker(
@@ -57,7 +44,9 @@ class _ExpiryPageState extends State<ExpiryPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Choose expiry',
+                post.category == 'Food'
+                    ? 'Choose expiry'
+                    : 'Choose Availability',
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -67,7 +56,7 @@ class _ExpiryPageState extends State<ExpiryPage> {
                 height: 10,
               ),
               Text(
-                'Tell us until your donation is available. If not limited to time choose unlimited.',
+                'Tell us until when your donation is available. If not limited to time choose unlimited.',
                 style: TextStyle(
                     fontSize: 12,
                     // fontWeight: FontWeight.bold,
@@ -80,43 +69,41 @@ class _ExpiryPageState extends State<ExpiryPage> {
                 padding: const EdgeInsets.only(right: 25.0),
                 child: GestureDetector(
                   onTap: () {
+                    setState(() {
+                      isExpirable = true;
+                    });
                     _selectDate(context);
-                    changeColor();
                   },
                   child: Container(
-                    width: 500,
+                    width: double.maxFinite,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(),
-                      color: _containerColor1,
+                      border: Border.all(color: Colors.deepOrange),
+                      color: isExpirable ? _containerColor1 : _containerColor2,
                     ),
                     height: 50,
-                    child: currentDate == null
-                        ? Center(
-                            child: Text(
-                            'Choose from calender',
-                            style: TextStyle(
-                                color: _containertext1,
-                                fontWeight: FontWeight.bold),
-                          ))
-                        : Center(
-                            child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "${currentDate.toLocal()}".split(' ')[0],
-                                style: TextStyle(
-                                    color: _containertext1,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                "  (Click to change date)",
-                                style: TextStyle(
-                                    color: _containertext1,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          )),
+                    child: Center(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "${currentDate.toLocal()}".split(' ')[0],
+                          style: TextStyle(
+                              color: isExpirable
+                                  ? _containertext1
+                                  : _containertext2,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "  (Click to change date)",
+                          style: TextStyle(
+                              color: isExpirable
+                                  ? _containertext1
+                                  : _containertext2,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    )),
                   ),
                 ),
               ),
@@ -126,20 +113,28 @@ class _ExpiryPageState extends State<ExpiryPage> {
               Padding(
                 padding: const EdgeInsets.only(right: 25.0),
                 child: GestureDetector(
-                  onTap: changeColor,
+                  onTap: () {
+                    setState(() {
+                      isExpirable = false;
+                    });
+                  },
                   child: Container(
-                    width: 500,
+                    width: double.maxFinite,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(),
-                      color: _containerColor2,
+                      border: Border.all(
+                        color: Colors.deepOrange,
+                      ),
+                      color: !isExpirable ? _containerColor1 : _containerColor2,
                     ),
                     height: 50,
                     child: Center(
                         child: Text(
                       'Proceed with no expiry date',
                       style: TextStyle(
-                          color: _containertext2, fontWeight: FontWeight.bold),
+                          color:
+                              !isExpirable ? _containertext1 : _containertext2,
+                          fontWeight: FontWeight.bold),
                     )),
                   ),
                 ),
@@ -150,7 +145,10 @@ class _ExpiryPageState extends State<ExpiryPage> {
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    post.expiry = currentDate;
+                    if (isExpirable)
+                      post.expiry = currentDate;
+                    else
+                      post.expiry = null;
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => ReviewPage()),

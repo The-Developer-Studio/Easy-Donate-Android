@@ -98,7 +98,7 @@ class CustomAppBar extends StatelessWidget {
                                 fontSize: 12),
                           ),
                           Text(
-                            'needs a donation.',
+                            'need donation.',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,

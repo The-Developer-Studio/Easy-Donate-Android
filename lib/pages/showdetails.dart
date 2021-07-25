@@ -1,36 +1,30 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easydonatefinal/backend/data.dart';
+import 'package:easydonatefinal/models/item.dart';
 import 'package:easydonatefinal/models/user.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ShowDetails extends StatefulWidget {
-  final String user;
-  final String location;
-  final String category;
-  final String quantity;
-  final String desc;
-
-  const ShowDetails(
-      {Key key,
-      @required this.location,
-      @required this.category,
-      @required this.quantity,
-      @required this.desc,
-      this.user})
-      : super(key: key);
+  final Item item;
+  final bool isDonation;
+  const ShowDetails({
+    Key key,
+    @required this.item,
+    @required this.isDonation,
+  }) : super(key: key);
   @override
   _ShowDetailsState createState() => _ShowDetailsState();
 }
 
 class _ShowDetailsState extends State<ShowDetails> {
   UserDetails user;
-
   @override
   Widget build(BuildContext context) {
     userDetails.listen((users) {
       setState(() {
-        user = users.where((element) => element.uid == widget.user).first;
+        user = users.where((element) => element.uid == widget.item.user).first;
       });
     });
     return Scaffold(
@@ -72,7 +66,7 @@ class _ShowDetailsState extends State<ShowDetails> {
                             CircleAvatar(
                               radius: 25,
                               backgroundColor: Colors.black26,
-                              child: const Text('AS'),
+                              child: Text(widget.item.donorName[0]),
                             ),
                             SizedBox(
                               width: 20,
@@ -94,7 +88,7 @@ class _ShowDetailsState extends State<ShowDetails> {
                                       color: Colors.black54,
                                     ),
                                     Text(
-                                      widget.location,
+                                      widget.item.location,
                                       style: TextStyle(
                                           color: Colors.black54, fontSize: 12),
                                     ),
@@ -122,18 +116,37 @@ class _ShowDetailsState extends State<ShowDetails> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
+                              children: [
+                                Text(
+                                  'Item: ',
+                                  style: TextStyle(
+                                      color: Colors.deepOrange,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  widget.item.title,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
                                     Text(
-                                      'Type:',
+                                      'Type: ',
                                       style: TextStyle(
                                           color: Colors.deepOrange,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      widget.category,
+                                      widget.item.category,
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold),
@@ -143,13 +156,13 @@ class _ShowDetailsState extends State<ShowDetails> {
                                 Row(
                                   children: [
                                     Text(
-                                      'Quantity:',
+                                      'Quantity: ',
                                       style: TextStyle(
                                           color: Colors.deepOrange,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      widget.quantity,
+                                      widget.item.quantity,
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
@@ -173,45 +186,55 @@ class _ShowDetailsState extends State<ShowDetails> {
                               height: 10,
                             ),
                             Text(
-                              widget.desc,
+                              widget.item.desc,
                               style: TextStyle(
                                   color: Colors.black,
-                                  // fontWeight: FontWeight.bold,
-                                  fontSize: 10),
+                                  // fontWei5ght: FontWeight.bold,
+                                  fontSize: 13),
                             ),
                             SizedBox(
                               height: 50,
                             ),
-                            // Text(
-                            //   'Photos',
-                            //   style: TextStyle(
-                            //       color: Colors.black,
-                            //       fontWeight: FontWeight.bold,
-                            //       fontSize: 14),
-                            // ),
-                            // SizedBox(
-                            //   height: 10,
-                            // ),
-                            // Text(
-                            //   'No photos available',
-                            //   style: TextStyle(
-                            //       color: Colors.black,
-                            //       // fontWeight: FontWeight.bold,
-                            //       fontSize: 10),
-                            // ),
-                            // SizedBox(
-                            //   height: 50,
-                            // ),
+                            widget.isDonation
+                                ? Text(
+                                    'Photos',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14),
+                                  )
+                                : Container(),
+                            widget.isDonation
+                                ? SizedBox(
+                                    height: 10,
+                                  )
+                                : Container(),
+                            widget.isDonation
+                                ? Center(
+                                    child: widget.item.url != null
+                                        ? Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Container(
+                                              width: 300,
+                                              height: 300,
+                                              child: CachedNetworkImage(
+                                                imageUrl: widget.item.url,
+                                              ),
+                                            ),
+                                          )
+                                        : Padding(
+                                            padding: const EdgeInsets.all(18.0),
+                                            child: Text('No image selected'),
+                                          ),
+                                  )
+                                : Container(),
+                            SizedBox(
+                              height: 50,
+                            ),
                             Center(
                               child: GestureDetector(
-                                // onTap: () async {
-                                //   var _url = 'tel:${user.mobile}';
-
-                                // },
+                                //
                                 onTap: () async {
-                                  // var individual = user
-                                  //     .where((element) => element.uid == widget.user)
-                                  //     .first;
                                   print(user.mobile);
                                   var _url = 'tel:${user.mobile}';
                                   await canLaunch(_url)

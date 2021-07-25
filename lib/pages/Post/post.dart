@@ -31,13 +31,15 @@ class _PostNewState extends State<PostNew> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 20.0, left: 25),
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 'Choose your type',
+                textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -55,13 +57,11 @@ class _PostNewState extends State<PostNew> {
                     });
                   },
                   child: Container(
-                    width: 500,
+                    width: double.maxFinite,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: post.type == 'Donation'
-                            ? _containerColor1
-                            : _containerColor2,
+                        color: Colors.deepOrange,
                       ),
                       color: post.type == 'Donation'
                           ? _containerColor1
@@ -92,13 +92,11 @@ class _PostNewState extends State<PostNew> {
                     });
                   },
                   child: Container(
-                    width: 500,
+                    width: double.maxFinite,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
-                        color: post.type == 'Request'
-                            ? _containerColor1
-                            : _containerColor2,
+                        color: Colors.deepOrange,
                       ),
                       color: post.type == 'Request'
                           ? _containerColor1

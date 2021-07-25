@@ -322,15 +322,7 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        FirebaseAuth.instance
-                            .signOut()
-                            .whenComplete(() => Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Login(
-                                          isSignup: false,
-                                        )),
-                                (route) => false));
+                        _showLogOutDialog(context);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -351,12 +343,17 @@ class _AccountPageState extends State<AccountPage> {
                       height: 60,
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
                           'Built with',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 25),
+                        ),
+                        SizedBox(
+                          width: 10,
                         ),
                         Icon(
                           Icons.favorite,
@@ -364,9 +361,14 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                         Text(
                           '  by ',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 25),
                         ),
-                        Expanded(child: Image.asset('images/companyName.png'))
+                        Image.asset(
+                          'images/companyName.png',
+                          height: 250,
+                          width: 250,
+                        )
                         // Text(
                         //   'theDeveloperStudio ',
                         //   style: TextStyle(
@@ -381,5 +383,41 @@ class _AccountPageState extends State<AccountPage> {
             ],
           ),
         ));
+  }
+
+  _showLogOutDialog(BuildContext context) {
+    return showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Confirm Log Out?'),
+            content: Text('Are you sure you wish to Log out?'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Cancel')),
+              TextButton(
+                  onPressed: () {
+                    FirebaseAuth.instance
+                        .signOut()
+                        .whenComplete(() => Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Login(
+                                      isSignup: false,
+                                    )),
+                            (route) => false));
+                  },
+                  child: Text(
+                    'Log Out',
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                  )),
+            ],
+          );
+        });
   }
 }

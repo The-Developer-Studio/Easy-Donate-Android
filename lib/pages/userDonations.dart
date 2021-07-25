@@ -13,13 +13,14 @@ class _UserDonationsState extends State<UserDonations> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.deepOrange,
         elevation: 0,
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
             child: Text(
               'Donation history',
               style: TextStyle(
@@ -60,6 +61,7 @@ class _UserDonationsState extends State<UserDonations> {
                               children: [
                                 Expanded(
                                     child: ItemTile(
+                                  isDonation: true,
                                   item: snapshot.data[index],
                                 )),
                                 GestureDetector(

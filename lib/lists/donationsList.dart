@@ -18,6 +18,7 @@ class _DonationsListState extends State<DonationsList> {
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
                   return ItemTile(
+                    isDonation: true,
                     item: snapshot.data[index],
                   );
                 })
