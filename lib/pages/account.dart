@@ -342,41 +342,25 @@ class _AccountPageState extends State<AccountPage> {
                     SizedBox(
                       height: 60,
                     ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Built with',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 25),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Icon(
-                          Icons.favorite,
-                          color: Colors.deepOrange,
-                        ),
-                        Text(
-                          '  by ',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 25),
-                        ),
-                        Image.asset(
-                          'images/companyName.png',
-                          height: 250,
-                          width: 250,
-                        )
-                        // Text(
-                        //   'theDeveloperStudio ',
-                        //   style: TextStyle(
-                        //       fontWeight: FontWeight.bold,
-                        //       color: Colors.deepOrange),
-                        // ),
-                      ],
-                    )
+                    Image.asset(
+                      'images/companyName.png',
+                      height: 250,
+                      width: 250,
+                    ),
+                    // Row(
+                    //   crossAxisAlignment: CrossAxisAlignment.center,
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   mainAxisSize: MainAxisSize.min,
+                    //   children: [
+
+                    //     // Text(
+                    //     //   'theDeveloperStudio ',
+                    //     //   style: TextStyle(
+                    //     //       fontWeight: FontWeight.bold,
+                    //     //       color: Colors.deepOrange),
+                    //     // ),
+                    //   ],
+                    // )
                   ],
                 ),
               )
