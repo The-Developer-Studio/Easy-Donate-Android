@@ -117,9 +117,15 @@ String duration(Timestamp time) {
   var daysDifference = difference.inDays;
 
   if (minutesDifference < 60) {
+    if (minutesDifference == 1) {
+      return '$minutesDifference min ago';
+    }
     return '$minutesDifference mins ago';
   }
   if (minutesDifference > 60) {
+    if (hoursDifference == 1) {
+      return '$hoursDifference hour ago';
+    }
     if (hoursDifference < 24) {
       return '$hoursDifference hours ago';
     }
