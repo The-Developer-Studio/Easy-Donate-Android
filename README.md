@@ -58,6 +58,7 @@ width="200"
 [<img src="https://github.com/The-Developer-Studio/Easy-Donate-Android/blob/master/readme/Screenshot_20210814-133040.jpg" align="center"
 width="200"
     hspace="10" vspace="10">](https://github.com/The-Developer-Studio/Easy-Donate-Android/blob/master/readme/Screenshot_20210814-133040.jpg)
+    <br><br>
 [<img src="https://github.com/The-Developer-Studio/Easy-Donate-Android/blob/master/readme/Screenshot_20210814-133047.jpg" align="center"
 width="200"
     hspace="10" vspace="10">](https://github.com/The-Developer-Studio/Easy-Donate-Android/blob/master/readme/Screenshot_20210814-133047.jpg)
