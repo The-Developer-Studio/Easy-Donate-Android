@@ -74,6 +74,12 @@ On Android devices, Easy Donate requires the following permissions:
 Easy Donate is a free and open source project developed by volunteers. Any contributions are welcome. Here are a few ways you can help:
  * [Report bugs and make suggestions.](https://github.com/The-Developer-Studio/Easy-Donate-Android/issues)
  * Write some code. Please follow the code style used in the project to make a review process faster. This project uses firebase. Make your own googleservices.json file for your testing and make a pull request.
+ * ###Steps to Setup the Environment
+    * After Cloning the Repository, Set up a Firebase Project.
+    * Add the App to the Firebase Project.
+    * Download the google-services.json file to android/app/ directory
+    * Enable Email/Password Authentication in the Firebase Project.
+    * Run the App.
 
 ## License
 
