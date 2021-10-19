@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easydonatefinal/API/postUser.dart';
 import 'package:easydonatefinal/backend/controllers.dart';
 import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/pages/login.dart';
@@ -25,6 +26,25 @@ authRegister(BuildContext context) async {
         "mobile": mobileController.text,
         "location": '${cityController.text},${countryController.text}'
       });
+      print(uid);
+      Post newPost = new Post(
+          Address: addressController.text,
+          Email: emailController.text,
+          UID: uid,
+          Name: nameController.text,
+          Mobile: mobileController.text,
+          Location: cityController.text);
+      Post p = await createPost(
+          "https://easy-donate-api.herokuapp.com/user/create/",
+          body: newPost.toMap());
+      // createUser(
+      //     addressController.text,
+      //     emailController.text,
+      //     cityController.text,
+      //     mobileController.text,
+      //     nameController.text,
+      //     uid,
+      //     countryController.text);
       clearControllers();
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
