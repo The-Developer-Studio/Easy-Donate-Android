@@ -8,6 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+String globaluid;
+
 Stream authcheck() {
   return FirebaseAuth.instance.authStateChanges().asBroadcastStream();
 }
@@ -18,6 +20,7 @@ authRegister(BuildContext context) async {
       var result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text, password: passwordController.text);
       var uid = result.user.uid;
+      globaluid = result.user.uid;
       FirebaseFirestore.instance.collection('userDetails').add({
         "uid": uid,
         "email": emailController.text,
@@ -27,8 +30,14 @@ authRegister(BuildContext context) async {
         "location": '${cityController.text},${countryController.text}'
       });
 
-      adduser(uid, emailController.text, nameController.text,
-          addressController.text, mobileController.text, cityController.text);
+      adduser(
+          uid,
+          emailController.text,
+          nameController.text,
+          addressController.text,
+          mobileController.text,
+          cityController.text,
+          countryController.text);
 
       clearControllers();
       Navigator.of(context).pushAndRemoveUntil(
