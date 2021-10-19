@@ -26,25 +26,10 @@ authRegister(BuildContext context) async {
         "mobile": mobileController.text,
         "location": '${cityController.text},${countryController.text}'
       });
-      print(uid);
-      Post newPost = new Post(
-          Address: addressController.text,
-          Email: emailController.text,
-          UID: uid,
-          Name: nameController.text,
-          Mobile: mobileController.text,
-          Location: cityController.text);
-      Post p = await createPost(
-          "https://easy-donate-api.herokuapp.com/user/create/",
-          body: newPost.toMap());
-      // createUser(
-      //     addressController.text,
-      //     emailController.text,
-      //     cityController.text,
-      //     mobileController.text,
-      //     nameController.text,
-      //     uid,
-      //     countryController.text);
+
+      adduser(uid, emailController.text, nameController.text,
+          addressController.text, mobileController.text, cityController.text);
+
       clearControllers();
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
