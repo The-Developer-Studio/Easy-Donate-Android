@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easydonatefinal/API/postCreations.dart';
+import 'package:easydonatefinal/backend/controllers.dart';
 import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/models/postModel.dart';
 import 'package:easydonatefinal/pages/Post/success.dart';
@@ -288,6 +290,20 @@ class _ReviewPageState extends State<ReviewPage> {
                       "image": post.image != File('') ? url : '',
                       "user": FirebaseAuth.instance.currentUser.uid,
                     });
+                    addPost(
+                        post.donorName,
+                        post.donorAddress,
+                        post.city,
+                        post.country,
+                        post.category,
+                        post.productName,
+                        post.description,
+                        post.quantity,
+                        post.expiry.toString(),
+                        post.image != File('') ? url : '',
+                        FirebaseAuth.instance.currentUser.uid,
+                        DateTime.now().toString(),
+                        post.type == 'Donation' ? "true" : "false");
                     clearControllers();
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) => SuccessPage()));
