@@ -1,5 +1,4 @@
-import 'package:easydonatefinal/backend/data.dart';
-import 'package:easydonatefinal/widgets/faqTile.dart';
+import 'package:easydonatefinal/API/getFaq.dart';
 import 'package:flutter/material.dart';
 
 class FaqList extends StatefulWidget {
@@ -10,22 +9,45 @@ class FaqList extends StatefulWidget {
 }
 
 class _FaqListState extends State<FaqList> {
+  Future<FAQ> futureFaq;
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        stream: faqList,
+    ListTile _tile(
+      String title,
+      String subtitle,
+    ) =>
+        ListTile(
+          title: Text(title,
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 20,
+              )),
+          subtitle: Text(subtitle),
+        );
+
+    ListView _jobsListView(data) {
+      return ListView.builder(
+          itemCount: data.length,
+          itemBuilder: (context, index) {
+            return _tile(data[index].questions, data[index].answers);
+          });
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: FutureBuilder<List<FAQ>>(
+        future: fetchFaq(),
         builder: (context, snapshot) {
-          return snapshot.hasData
-              ? ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (context, index) {
-                    return FaqTile(
-                      faq: snapshot.data[index],
-                    );
-                  })
-              : Center(
-                  child: CircularProgressIndicator(),
-                );
-        });
+          if (snapshot.hasData) {
+            List<FAQ> data = snapshot.data;
+            return _jobsListView(data);
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+          return Center(child: CircularProgressIndicator());
+        },
+      ),
+    );
   }
 }
