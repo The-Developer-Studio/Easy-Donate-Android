@@ -21,7 +21,7 @@ Future<http.Response> addPost(
 
   Map data = {
     "UID": uid,
-    "did": uid,
+    // "did": uid,
     "Category": category,
     "isDonation": isDonation,
     "Description": description,
@@ -32,7 +32,7 @@ Future<http.Response> addPost(
     "expirytime": expiry,
     "quantity": quantity,
     "title": productName,
-    "user": uid,
+    // "user": uid,
     "image": imgUrl
   };
   //encode Map to JSON
