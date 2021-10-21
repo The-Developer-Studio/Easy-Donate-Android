@@ -24,7 +24,7 @@ class _ShowDetailsState extends State<ShowDetails> {
   Widget build(BuildContext context) {
     userDetails.listen((users) {
       setState(() {
-        user = users.where((element) => element.uid == widget.item.user).first;
+        user = users.where((element) => element.uid == widget.item.uid).first;
       });
     });
     return Scaffold(
@@ -186,7 +186,7 @@ class _ShowDetailsState extends State<ShowDetails> {
                               height: 10,
                             ),
                             Text(
-                              widget.item.desc,
+                              widget.item.description,
                               style: TextStyle(
                                   color: Colors.black,
                                   // fontWei5ght: FontWeight.bold,
@@ -211,14 +211,14 @@ class _ShowDetailsState extends State<ShowDetails> {
                                 : Container(),
                             widget.isDonation
                                 ? Center(
-                                    child: widget.item.url != null
+                                    child: widget.item.image != null
                                         ? Padding(
                                             padding: const EdgeInsets.all(10.0),
                                             child: Container(
                                               width: 300,
                                               height: 300,
                                               child: CachedNetworkImage(
-                                                imageUrl: widget.item.url,
+                                                imageUrl: widget.item.image,
                                               ),
                                             ),
                                           )

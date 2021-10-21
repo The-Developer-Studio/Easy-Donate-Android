@@ -1,3 +1,4 @@
+import 'package:easydonatefinal/API/getUserItems.dart';
 import 'package:easydonatefinal/API/postUser.dart';
 import 'package:easydonatefinal/backend/authentication.dart';
 import 'package:easydonatefinal/backend/data.dart';
@@ -17,14 +18,6 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  Future<Users> futureUser;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    futureUser = fetchUser();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +32,7 @@ class _AccountPageState extends State<AccountPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FutureBuilder<Users>(
-                future: futureUser,
+                future: fetchUser(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return Stack(
@@ -103,8 +96,8 @@ class _AccountPageState extends State<AccountPage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  StreamBuilder(
-                                      stream: userDonation,
+                                  FutureBuilder(
+                                      future: fetchUserDonation,
                                       builder: (context, snapshot) {
                                         return snapshot.hasData
                                             ? Column(
@@ -129,8 +122,8 @@ class _AccountPageState extends State<AccountPage> {
                                               )
                                             : Container();
                                       }),
-                                  StreamBuilder(
-                                      stream: userRequest,
+                                  FutureBuilder(
+                                      future: fetchUserRequest,
                                       builder: (context, snapshot) {
                                         return snapshot.hasData
                                             ? Column(
@@ -155,8 +148,8 @@ class _AccountPageState extends State<AccountPage> {
                                               )
                                             : Container();
                                       }),
-                                  StreamBuilder(
-                                      stream: userDonation,
+                                  FutureBuilder(
+                                      future: fetchUserDonation,
                                       builder: (context, snapshot) {
                                         return snapshot.hasData
                                             ? Column(

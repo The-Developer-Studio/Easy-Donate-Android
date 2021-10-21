@@ -11,7 +11,7 @@ class CategoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        post.category = category.name;
+        post.category = category.categoryName;
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => DonationDetails()),
@@ -33,14 +33,15 @@ class CategoryTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    IconData(category.icon, fontFamily: 'MaterialIcons'),
+                    IconData(int.parse(category.categoryIcon),
+                        fontFamily: 'MaterialIcons'),
                     color: Colors.white,
                   ),
                   SizedBox(
                     height: 5,
                   ),
                   Text(
-                    category.name,
+                    category.categoryName,
                     style: TextStyle(color: Colors.white),
                   ),
                 ],

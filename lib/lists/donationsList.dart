@@ -1,4 +1,6 @@
+import 'package:easydonatefinal/API/getItems.dart';
 import 'package:easydonatefinal/backend/data.dart';
+import 'package:easydonatefinal/models/item.dart';
 import 'package:easydonatefinal/widgets/itemTile.dart';
 import 'package:flutter/material.dart';
 
@@ -10,9 +12,9 @@ class DonationsList extends StatefulWidget {
 class _DonationsListState extends State<DonationsList> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: donations,
-      builder: (context, snapshot) {
+    return FutureBuilder(
+      future: fetchDonation,
+      builder: (context, AsyncSnapshot<List<Item>> snapshot) {
         return snapshot.hasData
             ? ListView.builder(
                 itemCount: snapshot.data.length,

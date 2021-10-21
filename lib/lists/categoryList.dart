@@ -1,3 +1,4 @@
+import 'package:easydonatefinal/API/getCategories.dart';
 import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/widgets/branding.dart';
 import 'package:easydonatefinal/widgets/categorytile.dart';
@@ -33,8 +34,8 @@ class _CategoryPageState extends State<CategoryPage> {
               SizedBox(
                 height: 40,
               ),
-              StreamBuilder(
-                  stream: categories,
+              FutureBuilder(
+                  future: fetchCategories(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return GridView.builder(

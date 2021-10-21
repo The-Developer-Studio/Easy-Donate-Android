@@ -1,3 +1,4 @@
+import 'package:easydonatefinal/API/getUserItems.dart';
 import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/widgets/itemTile.dart';
 import 'package:flutter/material.dart';
@@ -44,8 +45,8 @@ class _UserRequestsState extends State<UserRequests> {
           SizedBox(
             height: 30,
           ),
-          StreamBuilder(
-            stream: userRequest,
+          FutureBuilder(
+            future: fetchUserRequest,
             builder: (context, snapshot) {
               return snapshot.hasData
                   ? ListView.builder(

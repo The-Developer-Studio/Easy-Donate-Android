@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easydonatefinal/API/getItems.dart';
 import 'package:easydonatefinal/backend/controllers.dart';
 import 'package:easydonatefinal/models/category.dart';
 import 'package:easydonatefinal/models/faq.dart';
@@ -13,35 +14,35 @@ getCategories() {
   return FirebaseFirestore.instance.collection('categories').snapshots();
 }
 
-List<Item> _itemListFromSnapshot(QuerySnapshot snapshot) {
-  return snapshot.docs.map((request) {
-    return Item(
-        request.get('category'),
-        request.get('desc'),
-        request.get('donorAddress'),
-        request.get('donorName'),
-        request.get('location'),
-        request.get('postedTime'),
-        request.get('quantity'),
-        request.get('time'),
-        request.get('title'),
-        request.get('user'),
-        request.id,
-        request.get('image'));
-  }).toList();
-}
+// List<Item> _itemListFromSnapshot(QuerySnapshot snapshot) {
+//   return snapshot.docs.map((request) {
+//     return Item(
+//         category: request.get('category'),
+//         description: request.get('desc'),
+//         donorAddress: request.get('donorAddress'),
+//         donorName: request.get('donorName'),
+//         location: request.get('location'),
+//         postedtime: request.get('postedTime'),
+//         quantity: request.get('quantity'),
+//         expirytime: request.get('time'),
+//         title: request.get('title'),
+//         uid: request.get('user'),
+//         did: int.parse(request.get('id')),
+//         image: request.get('image'));
+//   }).toList();
+// }
 
-List<Faq> _faqFromSnapshot(QuerySnapshot snapshot) {
-  return snapshot.docs.map((faq) {
-    return Faq(faq.get('question'), faq.get('answer'));
-  }).toList();
-}
+// List<Faq> _faqFromSnapshot(QuerySnapshot snapshot) {
+//   return snapshot.docs.map((faq) {
+//     return Faq(faq.get('question'), faq.get('answer'));
+//   }).toList();
+// }
 
-List<Category> _categoriesFromSnapshot(QuerySnapshot snapshot) {
-  return snapshot.docs.map((category) {
-    return Category(category.get('name'), category.get('icon'));
-  }).toList();
-}
+// List<Category> _categoriesFromSnapshot(QuerySnapshot snapshot) {
+//   return snapshot.docs.map((category) {
+//     return Category(category.get('name'), category.get('icon'));
+//   }).toList();
+// }
 
 List<UserDetails> _userFromSnapshot(QuerySnapshot snapshot) {
   return snapshot.docs.map((user) {
@@ -55,28 +56,28 @@ List<UserDetails> _userFromSnapshot(QuerySnapshot snapshot) {
   }).toList();
 }
 
-Stream<List<Item>> get requests {
-  return FirebaseFirestore.instance
-      .collection('Request')
-      .orderBy('postedTime', descending: true)
-      .snapshots()
-      .map(_itemListFromSnapshot);
-}
+// Stream<List<Item>> get requests {
+//   return FirebaseFirestore.instance
+//       .collection('Request')
+//       .orderBy('postedTime', descending: true)
+//       .snapshots()
+//       .map(_itemListFromSnapshot);
+// }
 
-Stream<List<Item>> get donations {
-  return FirebaseFirestore.instance
-      .collection('Donation')
-      .orderBy('postedTime', descending: true)
-      .snapshots()
-      .map(_itemListFromSnapshot);
-}
+// Stream<List<Item>> get donations {
+//   return FirebaseFirestore.instance
+//       .collection('Donation')
+//       .orderBy('postedTime', descending: true)
+//       .snapshots()
+//       .map(_itemListFromSnapshot);
+// }
 
-Stream<List<Category>> get categories {
-  return FirebaseFirestore.instance
-      .collection('categories')
-      .snapshots()
-      .map(_categoriesFromSnapshot);
-}
+// Stream<List<Category>> get categories {
+//   return FirebaseFirestore.instance
+//       .collection('categories')
+//       .snapshots()
+//       .map(_categoriesFromSnapshot);
+// }
 
 Stream<List<UserDetails>> get userDetails {
   return FirebaseFirestore.instance
@@ -85,28 +86,28 @@ Stream<List<UserDetails>> get userDetails {
       .map(_userFromSnapshot);
 }
 
-Stream<List<Faq>> get faqList {
-  return FirebaseFirestore.instance
-      .collection('FAQs')
-      .snapshots()
-      .map(_faqFromSnapshot);
-}
+// Stream<List<Faq>> get faqList {
+//   return FirebaseFirestore.instance
+//       .collection('FAQs')
+//       .snapshots()
+//       .map(_faqFromSnapshot);
+// }
 
-Stream<List<Item>> get userDonation {
-  return FirebaseFirestore.instance
-      .collection('Donation')
-      .where('user', isEqualTo: FirebaseAuth.instance.currentUser.uid)
-      .snapshots()
-      .map(_itemListFromSnapshot);
-}
+// Stream<List<Item>> get userDonation {
+//   return FirebaseFirestore.instance
+//       .collection('Donation')
+//       .where('user', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+//       .snapshots()
+//       .map(_itemListFromSnapshot);
+// }
 
-Stream<List<Item>> get userRequest {
-  return FirebaseFirestore.instance
-      .collection('Request')
-      .where('user', isEqualTo: FirebaseAuth.instance.currentUser.uid)
-      .snapshots()
-      .map(_itemListFromSnapshot);
-}
+// Stream<List<Item>> get userRequest {
+//   return FirebaseFirestore.instance
+//       .collection('Request')
+//       .where('user', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+//       .snapshots()
+//       .map(_itemListFromSnapshot);
+// }
 
 // ignore: missing_return
 String duration(Timestamp time) {
@@ -187,8 +188,8 @@ class ItemSearch extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return StreamBuilder(
-        stream: isRequest ? requests : donations,
+    return FutureBuilder(
+        future: isRequest ? fetchRequest : fetchDonation,
         builder: (context, AsyncSnapshot snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -306,9 +307,9 @@ showEditDialog(BuildContext context, Item item, String collection) async {
       barrierDismissible: false,
       builder: (BuildContext context) {
         nameController.text = item.title;
-        descController.text = item.desc;
+        descController.text = item.description;
         quantityController.text = item.quantity;
-        currentDate = item.time.toDate();
+        currentDate = DateTime.parse(item.expirytime);
         return StatefulBuilder(
           builder: (context, setState) {
             return AlertDialog(
@@ -375,15 +376,6 @@ showEditDialog(BuildContext context, Item item, String collection) async {
                         color: Colors.red, fontWeight: FontWeight.bold),
                   ),
                   onPressed: () {
-                    FirebaseFirestore.instance
-                        .collection(collection)
-                        .doc(item.id)
-                        .update({
-                      'title': nameController.text,
-                      'desc': descController.text,
-                      'quantity': quantityController.text,
-                      'time': currentDate,
-                    });
                     clearControllers();
                     Fluttertoast.showToast(msg: 'Post Edited');
                     Navigator.of(context).pop();

@@ -1,3 +1,4 @@
+import 'package:easydonatefinal/API/getUserItems.dart';
 import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/widgets/itemTile.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +46,8 @@ class _UserDonationsState extends State<UserDonations> {
           SizedBox(
             height: 30,
           ),
-          StreamBuilder(
-            stream: userDonation,
+          FutureBuilder(
+            future: fetchUserDonation,
             builder: (context, snapshot) {
               return snapshot.hasData
                   ? ListView.builder(

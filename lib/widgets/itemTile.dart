@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easydonatefinal/backend/data.dart';
 import 'package:easydonatefinal/models/item.dart';
 import 'package:easydonatefinal/pages/showdetails.dart';
@@ -27,7 +28,7 @@ class ItemTile extends StatelessWidget {
       },
       child: ListCard(
         location: item.location,
-        postedTime: duration(item.postedTime),
+        postedTime: item.postedtime,
         title: item.title,
       ),
     );
